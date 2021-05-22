@@ -1,4 +1,5 @@
 # USAGE EXAMPLE:
+# x = ifunc()
 # x = ifunc(iformat=int)
 # x = ifunc(irange=['kali','ubuntu'])
 # x = ifunc(itext='Enter a number between 1 to 10: ', irange=range(0,11))
