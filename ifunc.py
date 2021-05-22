@@ -1,7 +1,13 @@
+# USAGE EXAMPLE:
+# x = ifunc(iformat=int)
+# x = ifunc(irange=['kali','ubuntu'])
+# x = ifunc(itext='Enter a number between 1 to 10: ', irange=range(0,11))
+# x = ifunc(itext='Enter an alphabet: ', irange=string.ascii_letters)       #import string has to be used for string.ascii_letters
+
 def ifunc(**kwargs):
     '''
     Function to get user input
-    :param kwargs: itext='', irange=[], iformat=string/integer
+    :param kwargs: itext='string', irange=[list], iformat={str/int}
     :return: Returns user input
     '''
     # Debug - print arguments
@@ -63,7 +69,3 @@ def ifunc(**kwargs):
         # print(y)
         return y
 
-
-# x = ifunc(irange=['a','b','cde'])
-# print(x)
-# print(type(x))
