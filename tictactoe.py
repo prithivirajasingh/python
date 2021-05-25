@@ -1,5 +1,8 @@
-def display_board(board):
+def cls():
     print('\n' * 50)
+    return
+
+def display_board(board):
     print('Positional chart:\n1|2|3\n4|5|6\n7|8|9\n')
     print('Board:')
     pstring = ''
@@ -102,54 +105,68 @@ def replay():
             continue
     pass
 
+def playttt():
+    print('Welcome to Tic Tac Toe!')
+    while True:
+        temp = 0
+        # Set the game up here
+        board = '#' + ' ' * 9
+        board = list(board)
+        # print(board)
+        # pass
 
-print('Welcome to Tic Tac Toe!')
-while True:
-    temp = 0
-    # Set the game up here
-    board = '#' + ' ' * 9
-    board = list(board)
-    print(board)
-    # pass
+        p1marker = player_input()
+        if p1marker == 'X':
+            p2marker = 'O'
+        else:
+            p2marker = 'X'
 
-    p1marker = player_input()
-    if p1marker == 'X':
-        p2marker = 'O'
-    else:
-        p2marker = 'X'
-
-    turnvar = choose_first()
-    game_on = True
-    while game_on:
-        # Player 1 Turn
-        if turnvar == 1:
-            display_board(board)
-            if full_board_check(board):
-                print('Game over! Game ended in a tie.')
-                break
-            print('Player 1:')
-            mark = player_choice(board)
-            place_marker(board, p1marker, mark)
-            if win_check(board, p1marker):
+        turnvar = choose_first()
+        iterations = 0
+        game_on = True
+        while game_on:
+            # Player 1 Turn
+            if turnvar == 1:
+                if not iterations == 0:
+                    cls()
+                else:
+                    iterations += 1
                 display_board(board)
-                print('Game over! Player 1 won.')
-                break
-            turnvar = 2
+                if full_board_check(board):
+                    print('Game over! Game ended in a tie.')
+                    break
+                print('Player 1:')
+                mark = player_choice(board)
+                place_marker(board, p1marker, mark)
+                if win_check(board, p1marker):
+                    cls()
+                    display_board(board)
+                    print('Game over! Player 1 won.')
+                    break
+                turnvar = 2
 
-        # Player2's turn.
-        if turnvar == 2:
-            display_board(board)
-            if full_board_check(board):
-                print('Game over! Game ended in a tie.')
-                break
-            print('Player 2:')
-            mark = player_choice(board)
-            place_marker(board, p2marker, mark)
-            if win_check(board, p2marker):
+            # Player2's turn.
+            if turnvar == 2:
+                if not iterations == 0:
+                    cls()
+                else:
+                    iterations += 1
                 display_board(board)
-                print('Game over! Player 2 won.')
-                break
-            turnvar = 1
+                if full_board_check(board):
+                    print('Game over! Game ended in a tie.')
+                    break
+                print('Player 2:')
+                mark = player_choice(board)
+                place_marker(board, p2marker, mark)
+                if win_check(board, p2marker):
+                    cls()
+                    display_board(board)
+                    print('Game over! Player 2 won.')
+                    break
+                turnvar = 1
 
-    if not replay():
-        break
+        if not replay():
+            break
+
+
+playttt()
