@@ -86,6 +86,7 @@ def player_choice(board):
         if space_check(board,x):
             return x
         else:
+            print('Invalid position')
             continue
     pass
 
