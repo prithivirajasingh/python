@@ -1,5 +1,5 @@
 def cls():
-    print('\n' * 50)
+    print('\n' * 70)
     return
 
 def display_board(board):
