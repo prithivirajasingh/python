@@ -3,6 +3,7 @@ Blackjack game
 """
 
 import random
+import time
 suits = ('Spades', 'Hearts', 'Clubs', 'Diamonds')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
 values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7, 'Eight': 8, 'Nine': 9, 'Ten': 10,
@@ -151,6 +152,8 @@ class Player:
             print(self)
             print(self.name + ' point is: ' + str(self.value()))
             if self.name == 'Dealer':
+                print('Dealer hitting again...')
+                time.sleep(3)
                 hit_on = True
             else:
                 hit_on = self.ip('hit')
@@ -184,7 +187,7 @@ while True:
         else:
             print('Insufficient chips! Please try again.')
             continue
-            
+
     deck.shuffle()
     dealer.add_card([deck.deal_one(), deck.deal_one()])
     player.add_card([deck.deal_one(), deck.deal_one()])
