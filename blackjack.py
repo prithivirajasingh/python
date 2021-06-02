@@ -84,6 +84,9 @@ class Player:
     def remove_last(self):
         return self.allcards.pop()
 
+    def remove_all(self):
+        self.allcards = []
+
     def chips(self, amount=0):
         if self.balance + amount >= 0:
             self.balance += amount
@@ -91,13 +94,15 @@ class Player:
         else:
             return self.balance + amount
 
-    def ip(self, imsg='d1', arg=str):
+    def ip(self, imsg='input', arg=str):
         if imsg == 'input':
             msg = f'{self.name} - Please enter input: '
         if imsg == 'bet':
             msg = f'{self.name} - Please enter desired bet amount: '
         if imsg == 'hit':
             msg = f'{self.name} - Please enter "h" to hit, "s" to stand: '
+        if imsg == 'replay':
+            msg = f'{self.name} - Please enter "y" to replay, "n" to exit: '
         if arg != str:
             arg = int
         while True:
@@ -113,9 +118,10 @@ class Player:
                     print('Invalid entry. Please try again')
                     continue
             else:
-                if val.lower() == 'h':
+                val = val.lower()
+                if val == 'h':
                     return True
-                if val.lower() == 's':
+                if val == 's':
                     return False
                 return val
 
@@ -131,23 +137,24 @@ class Player:
             hit_on = self.ip('hit')
         while hit_on:
             self.add_card(deck.deal_one())
-            if self.value() > hit_point:
+            if self.value() >= hit_point:
                 if self.name == 'Dealer':
                     print(self)
                     print(self.name + ' point is: ' + str(self.value()))
-                    return
+                    return ''
                 else:
                     print(dealer)
                     print(self)
                     print(self.name + ' point is: ' + str(self.value()))
-                    print('Player busted! Dealer wins!')
-                    exit()
+                    # print('Player busted!')
+                    return 'Dealer'
             print(self)
             print(self.name + ' point is: ' + str(self.value()))
             if self.name == 'Dealer':
                 hit_on = True
             else:
                 hit_on = self.ip('hit')
+        return ''
 
     def show_except_one(self):
         print('\n' + self.name + ':')
@@ -162,29 +169,91 @@ class Player:
         mylist = [print(cards) for cards in self.allcards]
         return ''
 
-mycard = Card('Five', 'Hearts')
+
 deck = Deck()
 dealer = Player('Dealer')
 player = Player()
+player.chips(100)
 
-deck.shuffle()
-dealer.add_card([deck.deal_one(), deck.deal_one()])
-player.add_card([deck.deal_one(), deck.deal_one()])
+while True:
+    deck.shuffle()
+    dealer.add_card([deck.deal_one(), deck.deal_one()])
+    player.add_card([deck.deal_one(), deck.deal_one()])
 
-dealer.show_except_one()
-# print(dealer.name + ' point is: ' + str(dealer.value()))
-print(player)
-# print(dealer)
-print(player.name + ' point is: ' + str(player.value()))
-player.hit()
-print(dealer)
-dealer.hit()
-if dealer.value() > 21:
-    print('Dealer busted! Player wins!')
-    exit()
-elif dealer.value() > player.value():
-    print('Dealer has higher points! Dealer wins!')
-    exit()
-else:
-    print('Player has higher points! Player wins!')
-    exit()
+    dealer.show_except_one()
+    # print(dealer.name + ' point is: ' + str(dealer.value()))
+    print(player)
+    # print(dealer)
+    print(player.name + ' point is: ' + str(player.value()))
+    print('Player chips remaining: ' + str(player.chips()))
+    while True:
+        bet = player.ip('bet', int)
+        if bet <= player.chips():
+            break
+        else:
+            print('Insufficient chips! Please try again.')
+            continue
+
+    player.hit()
+    if player.value() > 21:
+        print('Player busted! Dealer wins!')
+        player.chips(-bet)
+        print('Player chips remaining: ' + str(player.chips()))
+        if player.chips() == 0:
+            print('Insufficient chips! Please recharge and try again.')
+            exit()
+        replay = player.ip('replay')
+        if replay == 'y':
+            player.remove_all()
+            dealer.remove_all()
+            deck = Deck()
+            continue
+        else:
+            exit()
+    print(dealer)
+    dealer.hit()
+    if dealer.value() > 21:
+        print('Dealer busted! Player wins!')
+        player.chips(bet)
+        print('Player chips remaining: ' + str(player.chips()))
+        if player.chips() == 0:
+            print('Insufficient chips! Please recharge and try again.')
+            exit()
+        replay = player.ip('replay')
+        if replay == 'y':
+            player.remove_all()
+            dealer.remove_all()
+            deck = Deck()
+            continue
+        else:
+            exit()
+    elif dealer.value() > player.value():
+        print('Dealer has higher points! Dealer wins!')
+        player.chips(-bet)
+        print('Player chips remaining: ' + str(player.chips()))
+        if player.chips() == 0:
+            print('Insufficient chips! Please recharge and try again.')
+            exit()
+        replay = player.ip('replay')
+        if replay == 'y':
+            player.remove_all()
+            dealer.remove_all()
+            deck = Deck()
+            continue
+        else:
+            exit()
+    else:
+        print('Player has higher points! Player wins!')
+        player.chips(bet)
+        print('Player chips remaining: ' + str(player.chips()))
+        if player.chips() == 0:
+            print('Insufficient chips! Please recharge and try again.')
+            exit()
+        replay = player.ip('replay')
+        if replay == 'y':
+            player.remove_all()
+            dealer.remove_all()
+            deck = Deck()
+            continue
+        else:
+            exit()
