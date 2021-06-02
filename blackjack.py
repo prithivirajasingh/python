@@ -176,6 +176,15 @@ player = Player()
 player.chips(100)
 
 while True:
+    print('Player chips remaining: ' + str(player.chips()))
+    while True:
+        bet = player.ip('bet', int)
+        if bet <= player.chips():
+            break
+        else:
+            print('Insufficient chips! Please try again.')
+            continue
+            
     deck.shuffle()
     dealer.add_card([deck.deal_one(), deck.deal_one()])
     player.add_card([deck.deal_one(), deck.deal_one()])
@@ -185,14 +194,6 @@ while True:
     print(player)
     # print(dealer)
     print(player.name + ' point is: ' + str(player.value()))
-    print('Player chips remaining: ' + str(player.chips()))
-    while True:
-        bet = player.ip('bet', int)
-        if bet <= player.chips():
-            break
-        else:
-            print('Insufficient chips! Please try again.')
-            continue
 
     player.hit()
     if player.value() > 21:
