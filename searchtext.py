@@ -16,7 +16,6 @@ def searchtext(pattern, filetype='', location='', subfolder=False):
         # print('Pattern cannot be empty!')
         yield [-2]
         return
-        return
     if location == '':
         location = os.getcwd()
     if not os.path.isdir(location):
