@@ -8,12 +8,14 @@ def searchtext(pattern, filetype='', location='', subfolder=False):
     :param filetype: (Optional) Part of filename or extension can be supplied. Example: filetype='.txt'
     :param location: (Optional) Top directory to search.
     :param subfolder: (Optional) Set to True if subfolder search is required. Example: subfolder=True
-    :return: A list. [-1] if directory does not exist, [0] if no match found, ['filePath', lineNumber, 'matchedWord'] if found
+    :return: A list. [-2] if empty pattern is supplied, [-1] if directory does not exist, [0] if no match found, ['filePath', lineNumber, 'matchedWord'] if found
     """
     import os
     import re
     if pattern == '':
-        print('Pattern cannot be empty!')
+        # print('Pattern cannot be empty!')
+        yield [-2]
+        return
         return
     if location == '':
         location = os.getcwd()
