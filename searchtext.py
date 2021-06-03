@@ -4,7 +4,7 @@ def searchtext(pattern, filetype='', location='', subfolder=True):
     Default filetype: All filetypes.\n
     Default location: Current location of the python file.\n
     Deafult subfolder search: Set to True (subfolder search enabled) by default\n
-    
+
     :param pattern: (Required) Search pattern. Example: pattern=r'(\d{3})-(\d{3})-(\d{4})'
     :param filetype: (Optional) Part of filename or extension can be supplied. Example: filetype='.txt'
     :param location: (Optional) Top directory to search.
@@ -40,14 +40,17 @@ def searchtext(pattern, filetype='', location='', subfolder=True):
                                 value.append(filename)
                                 value.append(index + 1)
                                 value.extend(match)
-                                yield value
+                                try:
+                                    yield value
+                                except GeneratorExit:
+                                    # print('Iteration stopped!')
+                                    return
                 except:
                     continue
     if matchfound == False:
         # print('No match found!')
         yield [0]
         return
-
 
 # USAGE EXAMPLE:
 # pattern = r'(\d{3})-(\d{3})-(\d{4})'
