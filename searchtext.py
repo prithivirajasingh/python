@@ -1,13 +1,14 @@
-def searchtext(pattern, filetype='', location='', subfolder=False):
+def searchtext(pattern, filetype='', location='', subfolder=True):
     """
     A generator function which searches for a regex pattern inside the contents of files in a directory.\n
     Default filetype: All filetypes.\n
     Default location: Current location of the python file.\n
-    Deafult subfolder search: Set to false (subfolder search disabled) by default\n
+    Deafult subfolder search: Set to True (subfolder search enabled) by default\n
+    
     :param pattern: (Required) Search pattern. Example: pattern=r'(\d{3})-(\d{3})-(\d{4})'
     :param filetype: (Optional) Part of filename or extension can be supplied. Example: filetype='.txt'
     :param location: (Optional) Top directory to search.
-    :param subfolder: (Optional) Set to True if subfolder search is required. Example: subfolder=True
+    :param subfolder: (Optional) Set to False if subfolder search is not required. Example: subfolder=False
     :return: A list. [-2] if empty pattern is supplied, [-1] if directory does not exist, [0] if no match found, ['filePath', lineNumber, 'matchedWord'] if found
     """
     import os
@@ -48,7 +49,7 @@ def searchtext(pattern, filetype='', location='', subfolder=False):
         return
 
 
-pattern = r'(\d{3})-(\d{3})-(\d{4})'
-# pattern = r'\d{3}-\d{3}-\d{4}'
-for matches in searchtext(pattern=pattern, filetype='.txt', subfolder=True):
-    print(matches)
+# USAGE EXAMPLE:
+# pattern = r'(\d{3})-(\d{3})-(\d{4})'
+# for matches in searchtext(pattern):
+#     print(matches)
