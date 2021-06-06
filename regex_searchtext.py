@@ -54,5 +54,6 @@ def searchtext(pattern, filetype='', location='', subfolder=True):
 
 # USAGE EXAMPLE:
 # pattern = r'(\d{3})-(\d{3})-(\d{4})'
+# pattern = re.compile(r'happenings.+THE', re.DOTALL | re.IGNORECASE)
 # for matches in searchtext(pattern):
 #     print(matches)
