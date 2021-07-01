@@ -25,6 +25,7 @@ else:
 # print(target)
 # print(os.getenv("HOME"))
 if target == os.getenv("HOME"):
+	print('This program is prohibited to be run in home folder. \nProgram will now exit.')
 	exit()
 
 charlist = [' ', '\\', '[', ']', '(', ')']
