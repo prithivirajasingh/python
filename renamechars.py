@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+userinput = input('Enter any key to continue, "a" to abort: ')
+if userinput == 'a' or userinput == 'A':
+	print("Program terminated by user.")
+	exit()
+
+print('Task started.')
+
 import os
 import sys
 
@@ -64,7 +71,7 @@ while count > 0:
 				cmd = 'mv "' + premod + '" ' + postmod
 				print(premod)
 				# print(cmd + '\n')
-				os.system(cmd)
+				# os.system(cmd)
 				count += 1
 
 		for item in subfolders:
@@ -89,6 +96,6 @@ while count > 0:
 				cmd = 'mv "' + premod + '" ' + postmod
 				print(premod)
 				# print(cmd + '\n')
-				os.system(cmd)
+				# os.system(cmd)
 				count += 1
 print('Task completed.')
