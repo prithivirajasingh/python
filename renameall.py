@@ -37,56 +37,60 @@ transdict = ''.maketrans(trans1, trans2)
 # print(transdict)
 # exit()
 
+count = 0
+while count > 0:
+	for folder, subfolders, files in os.walk(target):
+		# print('\nFolder is :' + folder)
+		if folder != target and subfolder == False:
+			break
 
-for folder, subfolders, files in os.walk(target):
-	# print('\nFolder is :' + folder)
-	if folder != target and subfolder == False:
-		break
+		for item in files:
+			premod = os.path.join(folder, item)
+			# print(premod + '\n')
+			if any(chars in item for chars in charlist):
+				# print(premod)
+				tempstring = item.translate(transdict)
+				templist = tempstring.split('_')
+				# print(templist)
+				templist = list(filter(None, templist))
+				# print(templist)
+				tempstring = '_'.join(templist)
+				tempstring = tempstring.replace('_.','.')
+				tempstring = tempstring.replace('...','.')
+				tempstring = tempstring.replace('..','.')
+				tempstring = tempstring.replace('___','_')
+				tempstring = tempstring.replace('_+_','_')
+				tempstring = tempstring.replace('_-_','_')
+				postmod = os.path.join(folder, tempstring)
+				# print(postmod)
+				cmd = 'mv "' + premod + '" ' + postmod
+				print(premod)
+				# print(cmd + '\n')
+				os.system(cmd)
+				count += 1
 
-	for item in files:
-		premod = os.path.join(folder, item)
-		# print(premod + '\n')
-		if any(chars in item for chars in charlist):
-			# print(premod)
-			tempstring = item.translate(transdict)
-			templist = tempstring.split('_')
-			# print(templist)
-			templist = list(filter(None, templist))
-			# print(templist)
-			tempstring = '_'.join(templist)
-			tempstring = tempstring.replace('_.','.')
-			tempstring = tempstring.replace('...','.')
-			tempstring = tempstring.replace('..','.')
-			tempstring = tempstring.replace('___','_')
-			tempstring = tempstring.replace('_+_','_')
-			tempstring = tempstring.replace('_-_','_')
-			postmod = os.path.join(folder, tempstring)
-			# print(postmod)
-			cmd = 'mv "' + premod + '" ' + postmod
-			print(premod)
-			# print(cmd + '\n')
-			os.system(cmd)
-
-	for item in subfolders:
-		premod = os.path.join(folder, item)
-		# print(premod + '\n')
-		if any(chars in item for chars in charlist):
-			# print(premod)
-			tempstring = item.translate(transdict)
-			templist = tempstring.split('_')
-			# print(templist)
-			templist = list(filter(None, templist))
-			# print(templist)
-			tempstring = '_'.join(templist)
-			tempstring = tempstring.replace('_.','.')
-			tempstring = tempstring.replace('...','.')
-			tempstring = tempstring.replace('..','.')
-			tempstring = tempstring.replace('___','_')
-			tempstring = tempstring.replace('_+_','_')
-			tempstring = tempstring.replace('_-_','_')
-			postmod = os.path.join(folder, tempstring)
-			# print(postmod)
-			cmd = 'mv "' + premod + '" ' + postmod
-			print(premod)
-			# print(cmd + '\n')
-			os.system(cmd)
+		for item in subfolders:
+			premod = os.path.join(folder, item)
+			# print(premod + '\n')
+			if any(chars in item for chars in charlist):
+				# print(premod)
+				tempstring = item.translate(transdict)
+				templist = tempstring.split('_')
+				# print(templist)
+				templist = list(filter(None, templist))
+				# print(templist)
+				tempstring = '_'.join(templist)
+				tempstring = tempstring.replace('_.','.')
+				tempstring = tempstring.replace('...','.')
+				tempstring = tempstring.replace('..','.')
+				tempstring = tempstring.replace('___','_')
+				tempstring = tempstring.replace('_+_','_')
+				tempstring = tempstring.replace('_-_','_')
+				postmod = os.path.join(folder, tempstring)
+				# print(postmod)
+				cmd = 'mv "' + premod + '" ' + postmod
+				print(premod)
+				# print(cmd + '\n')
+				os.system(cmd)
+				count += 1
+print('Task completed.')
