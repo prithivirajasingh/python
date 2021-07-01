@@ -12,20 +12,18 @@ for item in sys.argv[1:]:
 	if item == 'True' or item == 'true':
 		subfolder = True
 	else:
-		target = sys.argv[1]
+		target = item
 
 if not 'target' in locals():
 	target = os.getcwd()
 if not 'subfolder' in locals():
 	subfolder = False
-else:
-	subfolder = True
 
 # print(subfolder)
 # print(target)
 # print(os.getenv("HOME"))
 if target == os.getenv("HOME"):
-	print('This program is prohibited to be run in home folder. \nProgram will now exit.')
+	print('This program is prohibited to be run in home folder. \nProgram will now exit. Modify program to override.')
 	exit()
 
 charlist = [' ', '\\', '[', ']', '(', ')', '\'', '!', '+', '-']
