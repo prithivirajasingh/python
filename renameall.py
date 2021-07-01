@@ -2,8 +2,6 @@
 
 import os
 import sys
-import pymsgbox
-import time
 
 # print(sys.argv)
 # print(len(sys.argv))
@@ -54,7 +52,7 @@ for folder, subfolders, files in os.walk(target):
 			postmod = postmod.replace('_.','.')
 			# print(postmod)
 			cmd = 'mv "' + premod + '" ' + postmod
-			# print(cmd)
+			print(premod)
 			os.system(cmd)
 
 	for item in subfolders:
@@ -70,5 +68,5 @@ for folder, subfolders, files in os.walk(target):
 			postmod = postmod.replace('_.','.')
 			# print(postmod)
 			cmd = 'mv "' + premod + '" ' + postmod
-			# print(cmd)
+			print(premod)
 			os.system(cmd)
