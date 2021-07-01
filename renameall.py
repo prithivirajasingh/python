@@ -28,7 +28,7 @@ if target == os.getenv("HOME"):
 	print('This program is prohibited to be run in home folder. \nProgram will now exit.')
 	exit()
 
-charlist = [' ', '\\', '[', ']', '(', ')']
+charlist = [' ', '\\', '[', ']', '(', ')', '\'', '!', '+', '-']
 trans1 = ''.join(charlist)
 trans2 = '_' * len(charlist)
 transdict = ''.maketrans(trans1, trans2)
@@ -45,32 +45,48 @@ for folder, subfolders, files in os.walk(target):
 
 	for item in files:
 		premod = os.path.join(folder, item)
-		if any(chars in premod for chars in charlist):
+		# print(premod + '\n')
+		if any(chars in item for chars in charlist):
 			# print(premod)
-			postmod = premod.translate(transdict)
-			templist = postmod.split('_')
+			tempstring = item.translate(transdict)
+			templist = tempstring.split('_')
 			# print(templist)
 			templist = list(filter(None, templist))
 			# print(templist)
-			postmod = '_'.join(templist)
-			postmod = postmod.replace('_.','.')
+			tempstring = '_'.join(templist)
+			tempstring = tempstring.replace('_.','.')
+			tempstring = tempstring.replace('...','.')
+			tempstring = tempstring.replace('..','.')
+			tempstring = tempstring.replace('___','_')
+			tempstring = tempstring.replace('_+_','_')
+			tempstring = tempstring.replace('_-_','_')
+			postmod = os.path.join(folder, tempstring)
 			# print(postmod)
 			cmd = 'mv "' + premod + '" ' + postmod
 			print(premod)
+			# print(cmd + '\n')
 			os.system(cmd)
 
 	for item in subfolders:
 		premod = os.path.join(folder, item)
-		if any(chars in premod for chars in charlist):
+		# print(premod + '\n')
+		if any(chars in item for chars in charlist):
 			# print(premod)
-			postmod = premod.translate(transdict)
-			templist = postmod.split('_')
+			tempstring = item.translate(transdict)
+			templist = tempstring.split('_')
 			# print(templist)
 			templist = list(filter(None, templist))
 			# print(templist)
-			postmod = '_'.join(templist)
-			postmod = postmod.replace('_.','.')
+			tempstring = '_'.join(templist)
+			tempstring = tempstring.replace('_.','.')
+			tempstring = tempstring.replace('...','.')
+			tempstring = tempstring.replace('..','.')
+			tempstring = tempstring.replace('___','_')
+			tempstring = tempstring.replace('_+_','_')
+			tempstring = tempstring.replace('_-_','_')
+			postmod = os.path.join(folder, tempstring)
 			# print(postmod)
 			cmd = 'mv "' + premod + '" ' + postmod
 			print(premod)
+			# print(cmd + '\n')
 			os.system(cmd)
