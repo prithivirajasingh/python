@@ -23,6 +23,9 @@ else:
 
 # print(subfolder)
 # print(target)
+# print(os.getenv("HOME"))
+if target == os.getenv("HOME"):
+	exit()
 
 charlist = [' ', '\\', '[', ']', '(', ')']
 trans1 = ''.join(charlist)
