@@ -42,12 +42,17 @@ transdict = ''.maketrans(trans1, trans2)
 # print(transdict)
 # exit()
 
-count = 0
+# print('Checkpoint 1')
+iteration = 1
+count = 2
 while count > 0:
+	print(f'Iteration {iteration}')
 	for folder, subfolders, files in os.walk(target):
 		# print('\nFolder is :' + folder)
+		# print('Checkpoint 2')
 		if folder != target and subfolder == False:
 			break
+		# print('Checkpoint 3')
 
 		for item in files:
 			premod = os.path.join(folder, item)
@@ -70,9 +75,8 @@ while count > 0:
 				# print(postmod)
 				cmd = 'mv "' + premod + '" ' + postmod
 				print(premod)
-				# print(cmd + '\n')
-				# os.system(cmd)
-				count += 1
+				# print('\n' + cmd + '\n')
+				os.system(cmd)
 
 		for item in subfolders:
 			premod = os.path.join(folder, item)
@@ -95,7 +99,11 @@ while count > 0:
 				# print(postmod)
 				cmd = 'mv "' + premod + '" ' + postmod
 				print(premod)
-				# print(cmd + '\n')
-				# os.system(cmd)
+				# print('\n' + cmd + '\n')
+				os.system(cmd)
 				count += 1
+	count -= 1
+	# print(count)
+	iteration += 1
+
 print('Task completed.')
