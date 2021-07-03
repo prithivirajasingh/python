@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 
-userinput = input('Enter any key to continue, "a" to abort: ')
+# userinput = input('Enter any key to continue, "a" to abort: ')
+if not 'userinput' in locals():
+	userinput = 'y'
+# print(userinput)
 if userinput == 'a' or userinput == 'A':
 	print("Program terminated by user.")
 	exit()
+# exit()
 
-print('Task started.')
+# print('Task started.')
 
 import os
 import sys
@@ -16,8 +20,13 @@ import sys
 # print('Separator')
 
 for item in sys.argv[1:]:
-	if item == 'True' or item == 'true':
+	if item == '-s' or item == '--subfolder':
 		subfolder = True
+	elif item == '-d' or item == '--dryrun':
+		dryrun = True
+	elif item == '-sd':
+		subfolder = True
+		dryrun = True
 	else:
 		target = item
 
@@ -25,6 +34,8 @@ if not 'target' in locals():
 	target = os.getcwd()
 if not 'subfolder' in locals():
 	subfolder = False
+if not 'dryrun' in locals():
+	dryrun = False
 
 # print(subfolder)
 # print(target)
@@ -44,7 +55,7 @@ transdict = ''.maketrans(trans1, trans2)
 
 # print('Checkpoint 1')
 iteration = 1
-count = 2
+count = 1
 while count > 0:
 	print(f'Iteration {iteration}')
 	for folder, subfolders, files in os.walk(target):
@@ -76,7 +87,8 @@ while count > 0:
 				cmd = 'mv "' + premod + '" ' + postmod
 				print(premod)
 				# print('\n' + cmd + '\n')
-				os.system(cmd)
+				if dryrun == False:
+					os.system(cmd)
 
 		for item in subfolders:
 			premod = os.path.join(folder, item)
@@ -100,10 +112,11 @@ while count > 0:
 				cmd = 'mv "' + premod + '" ' + postmod
 				print(premod)
 				# print('\n' + cmd + '\n')
-				os.system(cmd)
-				count += 1
+				if dryrun == False:
+					os.system(cmd)
+					count += 1
 	count -= 1
 	# print(count)
 	iteration += 1
 
-print('Task completed.')
+# print('Task completed.')
