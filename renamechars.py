@@ -89,7 +89,7 @@ while count > 0:
 
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
-				cmd = 'mv "' + premod + '" ' + postmod
+				cmd = 'mv "' + premod + '" "' + postmod + '"'
 				print(premod + ' --> ' + postmod)
 				# print('\n' + cmd + '\n')
 				if dryrun == False:
@@ -116,7 +116,7 @@ while count > 0:
 				tempstring = tempstring.replace('__','_')
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
-				cmd = 'mv "' + premod + '" ' + postmod
+				cmd = 'mv "' + premod + '" "' + postmod + '"'
 				print(premod + ' --> ' + postmod)
 				# print('\n' + cmd + '\n')
 				if dryrun == False:
