@@ -82,10 +82,15 @@ while count > 0:
 				tempstring = tempstring.replace('___','_')
 				tempstring = tempstring.replace('_+_','_')
 				tempstring = tempstring.replace('_-_','_')
+
+				countval = tempstring.count(".") - 1
+				tempstring = tempstring.replace('.', '_', countval)
+				tempstring = tempstring.replace('__','_')
+
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
 				cmd = 'mv "' + premod + '" ' + postmod
-				print(premod)
+				print(premod + ' --> ' + postmod)
 				# print('\n' + cmd + '\n')
 				if dryrun == False:
 					os.system(cmd)
@@ -107,10 +112,12 @@ while count > 0:
 				tempstring = tempstring.replace('___','_')
 				tempstring = tempstring.replace('_+_','_')
 				tempstring = tempstring.replace('_-_','_')
+				tempstring = tempstring.replace('.','_')
+				tempstring = tempstring.replace('__','_')
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
 				cmd = 'mv "' + premod + '" ' + postmod
-				print(premod)
+				print(premod + ' --> ' + postmod)
 				# print('\n' + cmd + '\n')
 				if dryrun == False:
 					os.system(cmd)
