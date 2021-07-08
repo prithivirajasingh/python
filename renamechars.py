@@ -44,7 +44,7 @@ if target == os.getenv("HOME"):
 	print('This program is prohibited to be run in home folder. \nProgram will now exit. Modify program to override.')
 	exit()
 
-charlist = [' ', '\\', '[', ']', '(', ')', '\'', '!', '+', '-']
+charlist = [' ', '\\', '[', ']', '(', ')', '{', '}', '\'', '!', '+', '-', '~']
 trans1 = ''.join(charlist)
 trans2 = '_' * len(charlist)
 transdict = ''.maketrans(trans1, trans2)
