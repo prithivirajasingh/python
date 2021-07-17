@@ -88,6 +88,7 @@ while count > 0:
 				tempstring = tempstring.replace('__','_')
 				file_ext = tempstring.split('.')
 				file_ext = '.' + file_ext[-1]
+				tempstring = tempstring.split('.')[0]
 				# print(file_ext)
 				# exit()
 
@@ -98,7 +99,7 @@ while count > 0:
 						www = index + 3
 						break
 				for index,items in enumerate(tempstring.split('_')):
-					if items.isdigit() and index > www:
+					if items.isdigit() and index > www and len(items) == 4:
 						year = index + 1
 						break
 				tempstring = tempstring.split('_')[www:year]
@@ -143,7 +144,7 @@ while count > 0:
 						www = index + 3
 						break
 				for index,items in enumerate(tempstring.split('_')):
-					if items.isdigit() and index > www:
+					if items.isdigit() and index > www and len(items) == 4:
 						year = index + 1
 						break
 				tempstring = tempstring.split('_')[www:year]
