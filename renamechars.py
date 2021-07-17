@@ -86,6 +86,25 @@ while count > 0:
 				countval = tempstring.count(".") - 1
 				tempstring = tempstring.replace('.', '_', countval)
 				tempstring = tempstring.replace('__','_')
+				file_ext = tempstring.split('.')
+				file_ext = '.' + file_ext[-1]
+				# print(file_ext)
+				# exit()
+
+				www = 0
+				year = len(tempstring.split('_'))
+				for index,items in enumerate(tempstring.split('_')):
+					if 'www' in items:
+						www = index
+					if items.isdigit():
+						if index > www:
+							year = index
+							break
+				tempstring = tempstring.split('_')[www+3:year+1]
+				tempstring = '_'.join(tempstring) + file_ext
+				# print(tempstring)
+				# exit()
+
 
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
@@ -114,6 +133,22 @@ while count > 0:
 				tempstring = tempstring.replace('_-_','_')
 				tempstring = tempstring.replace('.','_')
 				tempstring = tempstring.replace('__','_')
+
+
+				www = 0
+				year = len(tempstring.split('_'))
+				for index,items in enumerate(tempstring.split('_')):
+					if 'www' in items:
+						www = index
+					if items.isdigit():
+						if index > www:
+							year = index
+							break
+				tempstring = tempstring.split('_')[www+3:year+1]
+				tempstring = '_'.join(tempstring)
+				# print(tempstring)
+				# exit()
+
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
 				cmd = 'mv "' + premod + '" "' + postmod + '"'
