@@ -103,7 +103,7 @@ while count > 0:
 						break
 				tempstring = tempstring.split('_')[www:year]
 				tempstring = '_'.join(tempstring) + file_ext
-				print(tempstring)
+				# print(tempstring)
 				# exit()
 
 
