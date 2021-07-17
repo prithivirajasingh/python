@@ -24,7 +24,7 @@ for item in sys.argv[1:]:
 		subfolder = True
 	elif item == '-d' or item == '--dryrun':
 		dryrun = True
-	elif item == '-sd':
+	elif item == '-sd' or item == 'ds':
 		subfolder = True
 		dryrun = True
 	else:
@@ -89,19 +89,26 @@ while count > 0:
 				file_ext = tempstring.split('.')
 				if len(file_ext) > 1:
 					file_ext = '.' + file_ext[-1]
+					tempstring = tempstring.split('.')[:-1]
 				else:
 					file_ext = ''
-				tempstring = tempstring.split('.')[0]
+					tempstring = tempstring.split('.')[0]
 				# print(file_ext)
 				# exit()
 
 				www = 0
+				tempstring = ''.join(tempstring)
+				# print(tempstring)
 				year = len(tempstring.split('_'))
 				for index,items in enumerate(tempstring.split('_')):
 					if 'www' in items:
 						www = index + 3
 						break
 				for index,items in enumerate(tempstring.split('_')):
+					if 'eason' in premod or 'EASON' in premod or 'S0' in premod or 's0' in premod or 'EP' in premod:
+						# print(premod)
+						# exit()
+						break
 					if items.isdigit() and index > www and len(items) == 4:
 						year = index + 1
 						break
@@ -113,11 +120,12 @@ while count > 0:
 
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
-				cmd = 'mv "' + premod + '" "' + postmod + '"'
-				print(premod + ' --> ' + postmod)
-				# print('\n' + cmd + '\n')
-				if dryrun == False:
-					os.system(cmd)
+				if postmod != premod:
+					cmd = 'mv "' + premod + '" "' + postmod + '"'
+					print(premod + ' --> ' + postmod)
+					# print('\n' + cmd + '\n')
+					if dryrun == False:
+						os.system(cmd)
 
 		for item in subfolders:
 			premod = os.path.join(folder, item)
@@ -141,12 +149,18 @@ while count > 0:
 
 
 				www = 0
+				tempstring = ''.join(tempstring)
+				# print(tempstring)
 				year = len(tempstring.split('_'))
 				for index,items in enumerate(tempstring.split('_')):
 					if 'www' in items:
 						www = index + 3
 						break
 				for index,items in enumerate(tempstring.split('_')):
+					if 'eason' in premod or 'EASON' in premod or 'S0' in premod or 's0' in premod or 'EP' in premod:
+						# print(premod)
+						# exit()
+						break
 					if items.isdigit() and index > www and len(items) == 4:
 						year = index + 1
 						break
@@ -157,12 +171,13 @@ while count > 0:
 
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
-				cmd = 'mv "' + premod + '" "' + postmod + '"'
-				print(premod + ' --> ' + postmod)
-				# print('\n' + cmd + '\n')
-				if dryrun == False:
-					os.system(cmd)
-					count += 1
+				if postmod != premod:
+					cmd = 'mv "' + premod + '" "' + postmod + '"'
+					print(premod + ' --> ' + postmod)
+					# print('\n' + cmd + '\n')
+					if dryrun == False:
+						os.system(cmd)
+						count += 1
 	count -= 1
 	# print(count)
 	iteration += 1
