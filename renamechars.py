@@ -44,7 +44,7 @@ if target == os.getenv("HOME"):
 	print('This program is prohibited to be run in home folder. \nProgram will now exit. Modify program to override.')
 	exit()
 
-charlist = [' ', '\\', '[', ']', '(', ')', '{', '}', '\'', '!', '+', '-', '~']
+charlist = [' ', '\\', '[', ']', '(', ')', '{', '}', '\'', '!', '+', '-', '~', '_']
 trans1 = ''.join(charlist)
 trans2 = '_' * len(charlist)
 transdict = ''.maketrans(trans1, trans2)
@@ -87,7 +87,10 @@ while count > 0:
 				tempstring = tempstring.replace('.', '_', countval)
 				tempstring = tempstring.replace('__','_')
 				file_ext = tempstring.split('.')
-				file_ext = '.' + file_ext[-1]
+				if len(file_ext) > 1:
+					file_ext = '.' + file_ext[-1]
+				else:
+					file_ext = ''
 				tempstring = tempstring.split('.')[0]
 				# print(file_ext)
 				# exit()
