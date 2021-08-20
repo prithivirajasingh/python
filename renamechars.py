@@ -31,9 +31,11 @@ for item in sys.argv[1:]:
 		if '-f' in item:
 			fcharlen = int(item[2:])
 			lcharlen = 0
+			forcerun = 1
 		if '-l' in item:
 			lcharlen = int(item[2:])
 			fcharlen = 0
+			forcerun = 1
 	else:
 		target = item
 
@@ -83,7 +85,7 @@ while count > 0:
 		for item in files:
 			premod = os.path.join(folder, item)
 			# print(premod + '\n')
-			if any(chars in item for chars in charlist):
+			if any(chars in item for chars in charlist) or forcerun == 1:
 				# print(premod)
 				tempstring = item.translate(transdict)
 				templist = tempstring.split('_')
@@ -129,9 +131,10 @@ while count > 0:
 						break
 				tempstring = tempstring.split('_')[www:year]
 				tempstring = '_'.join(tempstring) 
-				if fcharlen != 0:
+				# print(tempstring)
+				if fcharlen != 0 and fcharlen <= len(tempstring):
 					tempstring = tempstring[0:fcharlen]
-				if lcharlen != 0:
+				if lcharlen != 0 and lcharlen <= len(tempstring):
 					tempstring = tempstring[-lcharlen:]
 
 				# print(tempstring)
@@ -153,7 +156,7 @@ while count > 0:
 		for item in subfolders:
 			premod = os.path.join(folder, item)
 			# print(premod + '\n')
-			if any(chars in item for chars in charlist):
+			if any(chars in item for chars in charlist) or forcerun == 1:
 				# print(premod)
 				tempstring = item.translate(transdict)
 				templist = tempstring.split('_')
@@ -189,9 +192,10 @@ while count > 0:
 						break
 				tempstring = tempstring.split('_')[www:year]
 				tempstring = '_'.join(tempstring) 
-				if fcharlen != 0:
+				# print(tempstring)
+				if fcharlen != 0 and fcharlen <= len(tempstring):
 					tempstring = tempstring[0:fcharlen]
-				if lcharlen != 0:
+				if lcharlen != 0 and lcharlen <= len(tempstring):
 					tempstring = tempstring[-lcharlen:]
 
 				# print(tempstring)
