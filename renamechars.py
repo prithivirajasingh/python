@@ -27,6 +27,13 @@ for item in sys.argv[1:]:
 	elif item == '-sd' or item == 'ds':
 		subfolder = True
 		dryrun = True
+	elif item[2:].isdigit():
+		if '-f' in item:
+			fcharlen = int(item[2:])
+			lcharlen = 0
+		if '-l' in item:
+			lcharlen = int(item[2:])
+			fcharlen = 0
 	else:
 		target = item
 
@@ -36,10 +43,18 @@ if not 'subfolder' in locals():
 	subfolder = False
 if not 'dryrun' in locals():
 	dryrun = False
+if not 'fcharlen' in locals():
+	fcharlen = 0
+if not 'lcharlen' in locals():
+	lcharlen = 0
 
 # print(subfolder)
 # print(target)
 # print(os.getenv("HOME"))
+# print(fcharlen)
+# print(lcharlen)
+# exit()
+
 if target == os.getenv("HOME"):
 	print('This program is prohibited to be run in home folder. \nProgram will now exit. Modify program to override.')
 	exit()
@@ -113,7 +128,15 @@ while count > 0:
 						year = index + 1
 						break
 				tempstring = tempstring.split('_')[www:year]
-				tempstring = '_'.join(tempstring) + file_ext
+				tempstring = '_'.join(tempstring) 
+				if fcharlen != 0:
+					tempstring = tempstring[0:fcharlen]
+				if lcharlen != 0:
+					tempstring = tempstring[-lcharlen:]
+
+				# print(tempstring)
+				# exit()
+				tempstring = tempstring + file_ext
 				# print(tempstring)
 				# exit()
 
@@ -121,7 +144,7 @@ while count > 0:
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
 				if postmod != premod:
-					cmd = 'mv "' + premod + '" "' + postmod + '"'
+					cmd = 'mv -n "' + premod + '" "' + postmod + '"'
 					print(premod + ' --> ' + postmod)
 					# print('\n' + cmd + '\n')
 					if dryrun == False:
@@ -165,14 +188,19 @@ while count > 0:
 						year = index + 1
 						break
 				tempstring = tempstring.split('_')[www:year]
-				tempstring = '_'.join(tempstring)
+				tempstring = '_'.join(tempstring) 
+				if fcharlen != 0:
+					tempstring = tempstring[0:fcharlen]
+				if lcharlen != 0:
+					tempstring = tempstring[-lcharlen:]
+
 				# print(tempstring)
 				# exit()
 
 				postmod = os.path.join(folder, tempstring)
 				# print(postmod)
 				if postmod != premod:
-					cmd = 'mv "' + premod + '" "' + postmod + '"'
+					cmd = 'mv -n "' + premod + '" "' + postmod + '"'
 					print(premod + ' --> ' + postmod)
 					# print('\n' + cmd + '\n')
 					if dryrun == False:
