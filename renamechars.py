@@ -24,18 +24,17 @@ for item in sys.argv[1:]:
 		subfolder = True
 	elif item == '-d' or item == '--dryrun':
 		dryrun = True
-	elif item == '-sd' or item == 'ds':
-		subfolder = True
-		dryrun = True
+	elif item == '-f' or item == '--force':
+		forcerun = 1
 	elif item[2:].isdigit():
 		if '-f' in item:
 			fcharlen = int(item[2:])
 			# lcharlen = 0
-			forcerun = 1
+			# forcerun = 1
 		if '-l' in item:
 			lcharlen = int(item[2:])
 			# fcharlen = 0
-			forcerun = 1
+			# forcerun = 1
 	else:
 		target = item
 
