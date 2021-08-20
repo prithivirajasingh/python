@@ -30,11 +30,11 @@ for item in sys.argv[1:]:
 	elif item[2:].isdigit():
 		if '-f' in item:
 			fcharlen = int(item[2:])
-			lcharlen = 0
+			# lcharlen = 0
 			forcerun = 1
 		if '-l' in item:
 			lcharlen = int(item[2:])
-			fcharlen = 0
+			# fcharlen = 0
 			forcerun = 1
 	else:
 		target = item
@@ -133,10 +133,10 @@ while count > 0:
 				tempstring = '_'.join(tempstring) 
 				# print(tempstring)
 				if fcharlen != 0 and fcharlen <= len(tempstring):
-					tempstring = tempstring[0:fcharlen]
+					tempstring1 = tempstring[0:fcharlen]
 				if lcharlen != 0 and lcharlen <= len(tempstring):
-					tempstring = tempstring[-lcharlen:]
-
+					tempstring2 = tempstring[-lcharlen:]
+				tempstring = tempstring1 + tempstring2
 				# print(tempstring)
 				# exit()
 				tempstring = tempstring + file_ext
@@ -194,10 +194,10 @@ while count > 0:
 				tempstring = '_'.join(tempstring) 
 				# print(tempstring)
 				if fcharlen != 0 and fcharlen <= len(tempstring):
-					tempstring = tempstring[0:fcharlen]
+					tempstring1 = tempstring[0:fcharlen]
 				if lcharlen != 0 and lcharlen <= len(tempstring):
-					tempstring = tempstring[-lcharlen:]
-
+					tempstring2 = tempstring[-lcharlen:]
+				tempstring = tempstring1 + tempstring2
 				# print(tempstring)
 				# exit()
 
