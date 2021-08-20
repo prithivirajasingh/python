@@ -49,6 +49,8 @@ if not 'fcharlen' in locals():
 	fcharlen = 0
 if not 'lcharlen' in locals():
 	lcharlen = 0
+if not 'forcerun' in locals():
+	forcerun = 0
 
 # print(subfolder)
 # print(target)
@@ -132,11 +134,14 @@ while count > 0:
 				tempstring = tempstring.split('_')[www:year]
 				tempstring = '_'.join(tempstring) 
 				# print(tempstring)
+				tempstring1 = ''
+				tempstring2 = ''
 				if fcharlen != 0 and fcharlen <= len(tempstring):
 					tempstring1 = tempstring[0:fcharlen]
 				if lcharlen != 0 and lcharlen <= len(tempstring):
 					tempstring2 = tempstring[-lcharlen:]
-				tempstring = tempstring1 + tempstring2
+				if tempstring1 != '' or tempstring2 != '':
+					tempstring = tempstring1 + tempstring2
 				# print(tempstring)
 				# exit()
 				tempstring = tempstring + file_ext
@@ -193,11 +198,14 @@ while count > 0:
 				tempstring = tempstring.split('_')[www:year]
 				tempstring = '_'.join(tempstring) 
 				# print(tempstring)
+				tempstring1 = ''
+				tempstring2 = ''
 				if fcharlen != 0 and fcharlen <= len(tempstring):
 					tempstring1 = tempstring[0:fcharlen]
 				if lcharlen != 0 and lcharlen <= len(tempstring):
 					tempstring2 = tempstring[-lcharlen:]
-				tempstring = tempstring1 + tempstring2
+				if tempstring1 != '' or tempstring2 != '':
+					tempstring = tempstring1 + tempstring2
 				# print(tempstring)
 				# exit()
 
