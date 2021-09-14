@@ -18,6 +18,8 @@ import sys
 # print(len(sys.argv))
 # print(os.getcwd())
 # print('Separator')
+if len(sys.argv) == 1:
+	helpvar = 1
 
 for item in sys.argv[1:]:
 	if item == '-s' or item == '--subfolder':
@@ -26,6 +28,8 @@ for item in sys.argv[1:]:
 		dryrun = True
 	elif item == '-f' or item == '--force':
 		forcerun = 1
+	elif item == '-h' or item == '--help':
+		helpvar = 1
 	elif item[2:].isdigit():
 		if '-f' in item:
 			fcharlen = int(item[2:])
@@ -50,6 +54,8 @@ if not 'lcharlen' in locals():
 	lcharlen = 0
 if not 'forcerun' in locals():
 	forcerun = 0
+if not 'helpvar' in locals():
+	helpvar = 0
 
 # print(subfolder)
 # print(target)
@@ -57,6 +63,20 @@ if not 'forcerun' in locals():
 # print(fcharlen)
 # print(lcharlen)
 # exit()
+if helpvar == 1:
+	print('Renamechars is a program to rename files, written in python. \n')
+	print('Use -s to include subfolders.')
+	print("Use -f to force run the program on files that don't have trigger charlist.")
+	print("Use -h for help.")
+	print("Use -f## for first ## characters.")
+	print("Use -l## for last ## characters.")
+	print("Use -d for dryrun. \n")
+	print("Usage example:")
+	print("renamechars.py -h")
+	print("renamechars.py -s -f -d")
+	print("renamechars.py -f10")
+	print("renamechars.py -l10")
+	exit()
 
 if target == os.getenv("HOME"):
 	print('This program is prohibited to be run in home folder. \nProgram will now exit. Modify program to override.')
