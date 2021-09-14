@@ -18,8 +18,9 @@ import sys
 # print(len(sys.argv))
 # print(os.getcwd())
 # print('Separator')
-if len(sys.argv) == 1:
-	helpvar = 1
+
+# if len(sys.argv) == 1:
+# 	helpvar = 1
 
 for item in sys.argv[1:]:
 	if item == '-s' or item == '--subfolder':
