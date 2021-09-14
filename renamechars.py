@@ -19,14 +19,18 @@ import sys
 # print(os.getcwd())
 # print('Separator')
 
-# if len(sys.argv) == 1:
-# 	helpvar = 1
+if len(sys.argv) == 1:
+	helpvar = 1
 
 for item in sys.argv[1:]:
 	if item == '-s' or item == '--subfolder':
 		subfolder = True
 	elif item == '-d' or item == '--dryrun':
 		dryrun = True
+	elif item == '-r' or item == '--run':
+		run = True
+	elif '-t=' in item:
+		target = item[3:]
 	elif item == '-f' or item == '--force':
 		forcerun = 1
 	elif item == '-h' or item == '--help':
@@ -41,7 +45,8 @@ for item in sys.argv[1:]:
 			# fcharlen = 0
 			# forcerun = 1
 	else:
-		target = item
+		helpvar = 1
+		print('Invalid argument: {} \n'.format(item))
 
 if not 'target' in locals():
 	target = os.getcwd()
@@ -65,18 +70,22 @@ if not 'helpvar' in locals():
 # print(lcharlen)
 # exit()
 if helpvar == 1:
-	print('Renamechars is a program to rename files, written in python. \n')
+	print('renamechars.py is a python program to bulk rename files in a folder and/or its sub-folders.')
+	print('Use -r to run the program without any other arguments.')
+	print("Use -h for help.")
 	print('Use -s to include subfolders.')
 	print("Use -f to force run the program on files that don't have trigger charlist.")
-	print("Use -h for help.")
 	print("Use -f## for first ## characters.")
 	print("Use -l## for last ## characters.")
+	print("Use -t= for specifying target folder.")
 	print("Use -d for dryrun. \n")
 	print("Usage example:")
+	print("renamechars.py -r")
 	print("renamechars.py -h")
 	print("renamechars.py -s -f -d")
 	print("renamechars.py -f10")
 	print("renamechars.py -l10")
+	print("renamechars.py -s -f -d -t=/home/prithivi/Temp")
 	exit()
 
 if target == os.getenv("HOME"):
