@@ -1,0 +1,8 @@
+# Division
+3/2
+# Floor Division
+7//4
+# Modulo
+7%4
+# Powers
+4**0.5
