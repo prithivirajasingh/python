@@ -1,3 +1,16 @@
+print('Insert another string with curly brackets: {}'.format('The inserted string'))
+print("I'm going to inject %s here." %'something')
+print("I'm going to inject %s text here, and %s text here." %('some','more'))
+x, y = 'some', 'more'; print("I'm going to inject %s text here, and %s text here."%(x,y))
+print('He said his name was %r.' %'Fred')
+print('Floating point numbers: %10.2f' %(13.144))
+print('The {2} {1} {0}'.format('fox','brown','quick'))
+print('First Object: {a}, Second Object: {b}, Third Object: {b}'.format(a=1,b='Two',c=12.3))
+print('{0:=<8} | {1:-^8} | {2:.>8}'.format(11,22,33))
+print(f"He said his name is {name!r}")
+num = 23.45678; print("My 10 character, four decimal number is:{0:10.4f}".format(num)); print(f"My 10 character, four decimal number is:{num:{10}.{6}}")
+
+# NUMBERS:
 # Division
 3/2
 # Floor Division
@@ -6,7 +19,6 @@
 7%4
 # Powers
 4**0.5
-
 # Reassigning Variables: +=, -=, *=, and /=
 
 # You can check what type of object is assigned to a variable using Python's built-in type() function. Common data types include:
@@ -28,3 +40,6 @@ s[::2] # Grab everything, but go in step sizes of 2
 s[::-1] # Print a string backwards
 s = s + ' concatenate me!' # Concatenate strings
 s * 3 # Create repetition
+s.split() # Split a string by blank space (this is the default)
+s.split('W') # Split by a specific element (doesn't include the element that was split on)
+
