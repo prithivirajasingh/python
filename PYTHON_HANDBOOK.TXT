@@ -6,3 +6,25 @@
 7%4
 # Powers
 4**0.5
+
+# Reassigning Variables: +=, -=, *=, and /=
+
+# You can check what type of object is assigned to a variable using Python's built-in type() function. Common data types include:
+int (for integer)
+float
+str (for string)
+list
+tuple
+dict (for dictionary)
+set
+bool (for Boolean True/False)
+
+# STRINGS:
+print('Hello World 1')
+len("Hello World")
+s = 'Hello World'; s[0]; s[1:]; s[:3]; s[-1]
+s[:-1] # Grab everything but the last letter
+s[::2] # Grab everything, but go in step sizes of 2
+s[::-1] # Print a string backwards
+s = s + ' concatenate me!' # Concatenate strings
+s * 3 # Create repetition
