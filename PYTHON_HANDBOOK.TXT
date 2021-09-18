@@ -42,7 +42,7 @@ x = s.center(100, "*")
 x = ord('A') # returns ASCII
 x = chr(65) # returns char
 print(tempvar.count(chr(num)))
-import string; x.capwords()
+import string; string.capwords(tempvar)
 https://www.w3schools.com/python/python_ref_string.asp
 
 # SLEEP
