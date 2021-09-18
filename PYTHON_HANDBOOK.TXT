@@ -12,9 +12,6 @@ print(f"He said his name is {name!r}")
 num = 23.45678; print("My 10 character, four decimal number is:{0:10.4f}".format(num)); print(f"My 10 character, four decimal number is:{num:{10}.{6}}")
 
 # NUMBERS:
-# Division
-3/2
-# Floor Division
 7//4
 # Modulo
 7%4
@@ -33,8 +30,6 @@ set
 bool (for Boolean True/False)
 
 # STRINGS:
-print('Hello World 1')
-len("Hello World")
 s = 'Hello World'; s[0]; s[1:]; s[:3]; s[-1]
 s[:-1] # Grab everything but the last letter
 s[::2] # Grab everything, but go in step sizes of 2
@@ -43,6 +38,11 @@ s = s + ' concatenate me!' # Concatenate strings
 s * 3 # Create repetition
 s.split() # Split a string by blank space (this is the default)
 s.split('W') # Split by a specific element (doesn't include the element that was split on)
+x = s.center(100, "*")
+x = ord('A') # returns ASCII
+x = chr(65) # returns char
+print(tempvar.count(chr(num)))
+https://www.w3schools.com/python/python_ref_string.asp
 
 # SLEEP
 import time; time.sleep(5)
