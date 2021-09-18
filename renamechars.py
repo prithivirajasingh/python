@@ -13,6 +13,8 @@ if userinput == 'a' or userinput == 'A':
 
 import os
 import sys
+import pyperclip
+import time
 
 # print(sys.argv)
 # print(len(sys.argv))
@@ -31,6 +33,9 @@ for item in sys.argv[1:]:
 		run = True
 	elif '-t=' in item:
 		target = item[3:]
+	elif '-f=' in item:
+		filename = item[3:]
+		exitvar = 1
 	elif item == '-f' or item == '--force':
 		forcerun = 1
 	elif item == '-h' or item == '--help':
@@ -50,6 +55,8 @@ for item in sys.argv[1:]:
 
 if not 'target' in locals():
 	target = os.getcwd()
+if not 'filename' in locals():
+	filename = ''
 if not 'subfolder' in locals():
 	subfolder = False
 if not 'dryrun' in locals():
@@ -62,9 +69,18 @@ if not 'forcerun' in locals():
 	forcerun = 0
 if not 'helpvar' in locals():
 	helpvar = 0
+if not 'helpvar' in locals():
+	exitvar = 0
 
+# print(target) # Comment
+# print(filename) # Comment
+# pyperclip.copy(target) # Comment
+# time.sleep(10) # Comment
+# pyperclip.copy(filename) # Comment
+# exit() # Comment
 # print(subfolder)
-# print(target)
+# print(target) # Comment
+# exit() # Comment
 # print(os.getenv("HOME"))
 # print(fcharlen)
 # print(lcharlen)
@@ -107,16 +123,20 @@ count = 1
 while count > 0:
 	print(f'Iteration {iteration}')
 	for folder, subfolders, files in os.walk(target):
-		# print('\nFolder is :' + folder)
-		# print('Checkpoint 2')
+		# print('\nFolder is :' + folder) # Comment
+		# print('Checkpoint 2') # Comment
 		if folder != target and subfolder == False:
 			break
-		# print('Checkpoint 3')
+			# print('Checkpoint 3') # Comment
 
 		for item in files:
 			premod = os.path.join(folder, item)
-			# print(premod + '\n')
-			if any(chars in item for chars in charlist) or forcerun == 1:
+			# print(premod + '\n') # Comment
+			if filename == '':
+				filename = item
+			# print(filename)
+			# print(item)
+			if (any(chars in item for chars in charlist) or forcerun == 1) and item == filename:
 				# print(premod)
 				tempstring = item.translate(transdict)
 				templist = tempstring.split('_')
@@ -186,11 +206,13 @@ while count > 0:
 					# print('\n' + cmd + '\n')
 					if dryrun == False:
 						os.system(cmd)
+						if exitvar == 1:
+							exit()
 
 		for item in subfolders:
 			premod = os.path.join(folder, item)
-			# print(premod + '\n')
-			if any(chars in item for chars in charlist) or forcerun == 1:
+			# print(premod + '\n') # Comment
+			if (any(chars in item for chars in charlist) or forcerun == 1) and item == filename:
 				# print(premod)
 				tempstring = item.translate(transdict)
 				templist = tempstring.split('_')
@@ -247,8 +269,11 @@ while count > 0:
 					if dryrun == False:
 						os.system(cmd)
 						count += 1
+						if exitvar == 1:
+							exit()
 	count -= 1
 	# print(count)
 	iteration += 1
 
-# print('Task completed. ')
+# print('Task completed.')
+# ~/bin/renamechars.py -f -t=%d -f=%n
