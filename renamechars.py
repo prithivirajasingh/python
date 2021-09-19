@@ -69,7 +69,7 @@ if not 'forcerun' in locals():
 	forcerun = 0
 if not 'helpvar' in locals():
 	helpvar = 0
-if not 'helpvar' in locals():
+if not 'exitvar' in locals():
 	exitvar = 0
 
 # print(target) # Comment
