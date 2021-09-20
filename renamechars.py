@@ -49,6 +49,8 @@ for item in sys.argv[1:]:
 			lcharlen = int(item[2:])
 			# fcharlen = 0
 			# forcerun = 1
+		if '-w' in item:
+			wordcount = int(item[2:])
 	else:
 		helpvar = 1
 		print('Invalid argument: {} \n'.format(item))
@@ -71,9 +73,11 @@ if not 'helpvar' in locals():
 	helpvar = 0
 if not 'exitvar' in locals():
 	exitvar = 0
+if not 'wordcount' in locals():
+	wordcount = 0
 
 # print(target) # Comment
-# print(filename) # Comment
+print(filename) # Comment
 # pyperclip.copy(target) # Comment
 # time.sleep(10) # Comment
 # pyperclip.copy(filename) # Comment
@@ -137,7 +141,8 @@ while count > 0:
 			# print(filename)
 			# print(item)
 			if (any(chars in item for chars in charlist) or forcerun == 1) and item == filename:
-				# print(premod)
+				filename = ''
+				# print(premod) # Comment
 				tempstring = item.translate(transdict)
 				templist = tempstring.split('_')
 				# print(templist)
@@ -181,7 +186,10 @@ while count > 0:
 						year = index + 1
 						break
 				tempstring = tempstring.split('_')[www:year]
-				tempstring = '_'.join(tempstring) 
+				if wordcount == 0:
+					tempstring = '_'.join(tempstring)
+				else:
+					tempstring = '_'.join(tempstring[0:wordcount])
 				# print(tempstring)
 				tempstring1 = ''
 				tempstring2 = ''
@@ -193,6 +201,7 @@ while count > 0:
 					tempstring = tempstring1 + tempstring2
 				# print(tempstring)
 				# exit()
+
 				tempstring = tempstring + file_ext
 				# print(tempstring)
 				# exit()
@@ -206,14 +215,18 @@ while count > 0:
 					# print('\n' + cmd + '\n')
 					if dryrun == False:
 						os.system(cmd)
+						# print(exitvar) # Comment
 						if exitvar == 1:
 							exit()
 
 		for item in subfolders:
 			premod = os.path.join(folder, item)
 			# print(premod + '\n') # Comment
+			if filename == '':
+				filename = item
 			if (any(chars in item for chars in charlist) or forcerun == 1) and item == filename:
-				# print(premod)
+				filename = ''
+				# print(premod) # Comment
 				tempstring = item.translate(transdict)
 				templist = tempstring.split('_')
 				# print(templist)
@@ -247,7 +260,10 @@ while count > 0:
 						year = index + 1
 						break
 				tempstring = tempstring.split('_')[www:year]
-				tempstring = '_'.join(tempstring) 
+				if wordcount == 0:
+					tempstring = '_'.join(tempstring)
+				else:
+					tempstring = '_'.join(tempstring[0:wordcount])
 				# print(tempstring)
 				tempstring1 = ''
 				tempstring2 = ''
@@ -276,4 +292,3 @@ while count > 0:
 	iteration += 1
 
 # print('Task completed.')
-# ~/bin/renamechars.py -f -t=%d -f=%n
