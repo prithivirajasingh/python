@@ -97,6 +97,7 @@ if helpvar == 1:
 	print("Use -f to force run the program on files that don't have trigger charlist.")
 	print("Use -f## for first ## characters.")
 	print("Use -l## for last ## characters.")
+	print("Use -w# for first # words.")
 	print("Use -t= for specifying target folder.")
 	print("Use -d for dryrun. \n")
 	print("Usage example:")
