@@ -33,6 +33,9 @@ for item in sys.argv[1:]:
 		run = True
 	elif '-t=' in item:
 		target = item[3:]
+	elif '-p' in item:
+		partitionvar = item[2:]
+		forcerun = 1
 	elif '-f=' in item:
 		filename = item[3:]
 		exitvar = 1
@@ -75,9 +78,20 @@ if not 'exitvar' in locals():
 	exitvar = 0
 if not 'wordcount' in locals():
 	wordcount = 0
+if not 'partitionvar' in locals():
+	partitionvar = ''
+
+if partitionvar != '':
+	tempvar = partitionvar.partition('+')
+	partitionvar = tempvar[0]
+	partitionint = tempvar[2]
+	if partitionint == '':
+		partitionint = 0
+	partitionint = int(partitionint)
+	# print(partitionvar, partitionint)
 
 # print(target) # Comment
-print(filename) # Comment
+# print(filename) # Comment
 # pyperclip.copy(target) # Comment
 # time.sleep(10) # Comment
 # pyperclip.copy(filename) # Comment
@@ -98,11 +112,13 @@ if helpvar == 1:
 	print("Use -f## for first ## characters.")
 	print("Use -l## for last ## characters.")
 	print("Use -w# for first # words.")
+	print("Use -p@@ for partition. Optionally -p@@+## to include ## words after partition.")
 	print("Use -t= for specifying target folder.")
 	print("Use -d for dryrun. \n")
 	print("Usage example:")
 	print("renamechars.py -r")
 	print("renamechars.py -h")
+	print("renamechars.py -pEP+1")
 	print("renamechars.py -s -f -d")
 	print("renamechars.py -f10")
 	print("renamechars.py -l10")
@@ -200,8 +216,22 @@ while count > 0:
 					tempstring2 = tempstring[-lcharlen:]
 				if tempstring1 != '' or tempstring2 != '':
 					tempstring = tempstring1 + tempstring2
-				# print(tempstring)
-				# exit()
+
+				if partitionvar != '':
+					tempstring1 = tempstring.split('_')
+					tempstring = tempstring.partition(partitionvar)
+					# print(tempstring)
+					if tempstring[1] == '':
+						continue
+					tempvar = len(tempstring[0].split('_')) + partitionint
+					if tempvar >= len(tempstring1):
+						tempvar = len(tempstring1)
+					# print(tempstring, tempvar, tempstring1, partitionvar, partitionint) # Comment
+					tempstring1 = tempstring1[:tempvar]
+					tempstring = '_'.join(tempstring1)
+					
+				
+				# exit() # Comment
 
 				tempstring = tempstring + file_ext
 				# print(tempstring)
@@ -219,7 +249,7 @@ while count > 0:
 						# print(exitvar) # Comment
 						if exitvar == 1:
 							exit()
-
+		# exit() # Comment
 		for item in subfolders:
 			premod = os.path.join(folder, item)
 			# print(premod + '\n') # Comment
@@ -274,6 +304,18 @@ while count > 0:
 					tempstring2 = tempstring[-lcharlen:]
 				if tempstring1 != '' or tempstring2 != '':
 					tempstring = tempstring1 + tempstring2
+
+				if partitionvar != '':
+					tempstring1 = tempstring.split('_')
+					tempstring = tempstring.partition(partitionvar)
+					if tempstring[1] == '':
+						continue
+					tempvar = len(tempstring[0].split('_')) + partitionint
+					if tempvar >= len(tempstring1):
+						tempvar = len(tempstring1)
+					tempstring1 = tempstring1[:tempvar]
+					tempstring = '_'.join(tempstring1)
+
 				# print(tempstring)
 				# exit()
 
@@ -291,5 +333,7 @@ while count > 0:
 	count -= 1
 	# print(count)
 	iteration += 1
+	if iteration > 50:
+		count = 0
 
 # print('Task completed.')
