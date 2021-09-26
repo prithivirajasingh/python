@@ -23,6 +23,10 @@ if not 'exitvar' in locals():
 # print(target)
 # exit()
 
+if target == os.getenv("HOME"):
+	print('This program is prohibited to be run in home folder. \nProgram will now exit. Modify program to override.')
+	exit()
+
 for folder, subfolders, files in os.walk(target):
 	# print('Checkpoint 1')
 	if folder != target:
