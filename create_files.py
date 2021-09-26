@@ -17,7 +17,7 @@ for item in sys.argv[1:]:
 if not 'target' in locals():
 	target = os.getcwd()
 if not 'filecount' in locals():
-	filecount = 5
+	filecount = 3
 	# exitvar = 1
 if not 'exitvar' in locals():
 	exitvar = 0
@@ -45,12 +45,9 @@ for folder, subfolders, files in os.walk(target):
 				break
 		if filefound == 0:
 			cmd = 'touch ' + target + '/' + filename 
-			print(cmd)
+			# print(cmd)
 			# pyperclip.copy(cmd)
 			os.system(cmd)
 			if exitvar == 1:
 				exit()
 exit()
-
-# Thunar menu ->
-# /home/prithivi/bin/create_file.py -t=%f
