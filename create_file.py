@@ -2,6 +2,7 @@
 
 import os
 import sys
+# import pyperclip
 
 for item in sys.argv[1:]:
 	if '-t=' in item:
@@ -10,6 +11,7 @@ for item in sys.argv[1:]:
 		filecount = int(item[2:])
 		exitvar = 0
 	else:
+		# pyperclip.copy("Invalid argument")
 		print('Invalid argument: {} \n'.format(item))
 
 if not 'target' in locals():
@@ -20,6 +22,8 @@ if not 'filecount' in locals():
 if not 'exitvar' in locals():
 	exitvar = 0
 
+# pyperclip.copy(target)
+# exit()
 # print(target)
 # exit()
 
@@ -42,7 +46,11 @@ for folder, subfolders, files in os.walk(target):
 		if filefound == 0:
 			cmd = 'touch ' + target + '/' + filename 
 			print(cmd)
+			# pyperclip.copy(cmd)
 			os.system(cmd)
 			if exitvar == 1:
 				exit()
 exit()
+
+# Thunar menu ->
+# /home/prithivi/bin/create_file.py -t=%f
