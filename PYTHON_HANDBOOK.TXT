@@ -60,3 +60,15 @@ import time; time.sleep(5)
 # CLIPBOARD
 import pyperclip; pyperclip.copy(copyvar); pastevar = pyperclip.paste()
 
+# RANDOM AND PROBABILITY
+import random
+random.seed(1)
+random.randint(1, 100)
+random.choice(mylist)
+random.choices(mylist, weights = [2, 1], k = 10)
+random.shuffle(mylist) # Modifies original mylist
+newlist = random.sample(mylist, k=2) # Does not modify original mylist
+random.triangular(1, 100, 25)
+random.betavariate(0.2, 0.8) # More generated at start
+random.betavariate(0.8, 0.2)# More generated at end
+random.betavariate(0.5, 0.5)# More generated at start and end
