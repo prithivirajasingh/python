@@ -34,6 +34,7 @@ temp = 0
 myDate = datetime.date.today()
 year, weekNum, dayOfWeek = myDate.isocalendar()
 # print(weekNum)
+
 if year == discountYear and weekNum == discountWeek:
     discountFlag = 1
 discountMultiplier = (100 - discountPercent) / 100
@@ -93,8 +94,8 @@ while option != 0:
 
 if soupQty > 0:
     halfPricedBread = soupQty // 2
-    subTotal += soupQty * price['Soup']
-    total = total + subTotal
+    subTotal = soupQty * price['Soup']
+    total += subTotal
 
 if breadQty > 0:
     if breadQty > halfPricedBread:
@@ -105,21 +106,22 @@ if breadQty > 0:
     if itemDiscount > 0:
         discountText += "Savings on half price for {} loafs of bread: {:.2f}\n".format(halfPricedBread, itemDiscount)
     totalDiscount += itemDiscount
-    total = total + subTotal
+    total += subTotal
 
 if milkQty > 0:
     subTotal = milkQty * price['Milk']
-    total = total + subTotal
+    total += subTotal
 
 if applesQty > 0:
     if discountFlag == 1:
         subTotal = (applesQty * price['Apples']) * discountMultiplier
         itemDiscount = (applesQty * price['Apples']) - subTotal
-        discountText += "Savings on 10% off for Apples: {:.2f}\n".format(itemDiscount)
+        if itemDiscount > 0:
+            discountText += "Savings on 10% off for Apples: {:.2f}\n".format(itemDiscount)
         totalDiscount += itemDiscount
     else:
         subTotal = (qty * price['Apples'])
-    total = total + subTotal
+    total += subTotal
 
 if discountText == "":
     discountText = "(No offers available)"
