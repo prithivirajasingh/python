@@ -2,7 +2,7 @@
 import datetime
 
 def clearScreen():
-    for i in range(1,100):
+    for i in range(1,10):
         print('\n')
     print("Please find the product ID and price below.\n1.Soup:£0.65\t2.Bread:£0.80\t3.Milk:£1.30\t4.Apples:£1.00\n")
 
@@ -20,8 +20,8 @@ total = 0
 
 myDate = datetime.date.today()
 year, weekNum, dayOfWeek = myDate.isocalendar()
-#print(weekNum)
-print(year)
+# print(weekNum)
+# print(year)
 if year == discountYear and  weekNum == discountWeek:
     discountFlag = 1
 
