@@ -44,7 +44,8 @@ else:
     introText = " and price"
 
 print("Welcome to our online store!\nPlease find the product ID{0} details below.\n".format(introText))
-print(offerText)
+if offersRunning == 1:
+    print(offerText)
 print("{:<15} {:<15} {:<10}".format('PRODUCT ID', 'DESCRIPTION', 'PRICE'))
 for keys, values in price.items():
     temp += 1
