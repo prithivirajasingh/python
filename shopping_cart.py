@@ -1,16 +1,21 @@
 #!/usr/bin/env python
 import datetime
 
-# Declarations for price and discount
-price = {'Soup': 0.65, 'Bread': 0.80, 'Milk': 1.30, 'Apples': 1.00}
+# Declarations for customization
+# Set the applicable year for discount
 discountYear = 2022
+# Set the applicable week for discount
 discountWeek = 11
+# Set the applicable discount percentage
 discountPercent = 10
+# Set this to zero if there are no offers
 offersRunning = 1
+# Append additional offers if applicable
 offerText = "Offer: Buy 2 tins of soup and get one loaf of bread for half price."
 offerText += "\nOffer: 10% off on Apples for this week."
 
 # Declarations for code functioning
+price = {'Soup': 0.65, 'Bread': 0.80, 'Milk': 1.30, 'Apples': 1.00}
 option = -1
 qty = 0
 halfPricedBread = 0
