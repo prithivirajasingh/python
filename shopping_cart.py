@@ -29,7 +29,7 @@ temp = 0
 myDate = datetime.date.today()
 year, weekNum, dayOfWeek = myDate.isocalendar()
 # print(weekNum)
-if year == discountYear and  weekNum == discountWeek:
+if year == discountYear and weekNum == discountWeek:
     discountFlag = 1
 discountMultiplier = (100 - discountPercent) / 100
 # print(discountMultiplier)
@@ -40,7 +40,7 @@ else:
 
 print("Welcome to our online store!\nPlease find the product ID{0} details below.\n".format(introText))
 print(offerText)
-print ("{:<15} {:<15} {:<10}".format('PRODUCT ID','DESCRIPTION','PRICE'))
+print("{:<15} {:<15} {:<10}".format('PRODUCT ID', 'DESCRIPTION', 'PRICE'))
 for keys, values in price.items():
     temp += 1
     print("{:<15} {:<15} {:<10}".format(temp, keys, values))
