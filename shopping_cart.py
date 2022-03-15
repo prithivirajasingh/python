@@ -1,70 +1,123 @@
 #!/usr/bin/env python
 import datetime
 
-def clearScreen():
-    for i in range(1,100):
-        print('\n')
-    print("Please find the product ID and price details below.\n1.Soup:£0.65\t2.Bread:£0.80\t3.Milk:£1.30\t4.Apples:£1.00\n")
-
+# Declarations for price and discount
 price = {'Soup': 0.65, 'Bread': 0.80, 'Milk': 1.30, 'Apples': 1.00}
 discountYear = 2022
 discountWeek = 11
+discountPercent = 10
+offersRunning = 1
+offerText = "Offer: Buy 2 tins of soup and get one loaf of bread for half price."
+offerText += "\nOffer: 10% off on Apples for this week."
 
+# Declarations for code functioning
 option = -1
 qty = 0
 halfPricedBread = 0
+discountFlag = 0
+soupQty = 0
+breadQty = 0
+milkQty = 0
+applesQty = 0
 subTotal = 0
 total = 0
 itemDiscount = 0
 totalDiscount = 0
+discountText = ""
+temp = 0
 
 myDate = datetime.date.today()
 year, weekNum, dayOfWeek = myDate.isocalendar()
 # print(weekNum)
-# print(year)
 if year == discountYear and  weekNum == discountWeek:
     discountFlag = 1
+discountMultiplier = (100 - discountPercent) / 100
+# print(discountMultiplier)
+if offersRunning == 1:
+    introText = ", price and offer"
+else:
+    introText = " and price"
 
-print("Welcome to our online store!\nPlease find the product ID and price details det below.\n1.Soup:£0.65\t2.Bread:£0.80\t3.Milk:£1.30\t4.Apples:£1.00\n")
+print("Welcome to our online store!\nPlease find the product ID{0} details below.\n".format(introText))
+print(offerText)
+print ("{:<15} {:<15} {:<10}".format('PRODUCT ID','DESCRIPTION','PRICE'))
+for k, v in price.items():
+    temp += 1
+    print("{:<15} {:<15} {:<10}".format(temp, k, v))
+# exit()
 while option != 0:
-    option = int(input("Please enter the product ID. Enter '0' to checkout: "))
-
-    if option == 1:
-        qty = int(input("You have chosen Soup. Please enter the quantity: "))
-        halfPricedBread = qty // 2
-        print(halfPricedBread)
-        subTotal = qty * price['Soup']
-        clearScreen()
-        print("Item subtotal: {:.2f}".format(subTotal))
-        total = total + subTotal
-        print("Total: {:.2f}".format(total))
+    option = -1
+    try:
+        option = int(input("\nPlease enter the product ID to add to cart, '0' to checkout: "))
+    except:
+        pass
+    if option == 0:
+        pass
+    elif option == 1:
+        try:
+            qty = int(input("You have chosen Soup. Please enter the quantity: "))
+        except:
+            print("Invalid input. Please try again!")
+        soupQty += qty
+        qty = 0
+        # print(soupQty)
     elif option == 2:
-        qty = int(input("You have chosen Bread. Please enter the quantity: "))
-        if qty > halfPricedBread:
-            subTotal = ((qty - halfPricedBread) * price['Bread']) + (halfPricedBread * price['Bread'] / 2)
-        else:
-            subTotal = qty * (price['Bread'] / 2)
-        clearScreen()
-        print("Item subtotal: {:.2f}".format(subTotal))
-        total = total + subTotal
-        print("Total: {:.2f}".format(total))
+        try:
+            qty = int(input("You have chosen Bread. Please enter the quantity: "))
+        except:
+            print("Invalid input. Please try again!")
+        breadQty += qty
+        qty = 0
     elif option == 3:
-        qty = int(input("You have chosen Milk. Please enter the quantity: "))
-        subTotal = qty * price['Milk']
-        clearScreen()
-        print("Item subtotal: {:.2f}".format(subTotal))
-        total = total + subTotal
-        print("Total: {:.2f}".format(total))
+        try:
+            qty = int(input("You have chosen Milk. Please enter the quantity: "))
+        except:
+            print("Invalid input. Please try again!")
+        milkQty += qty
+        qty = 0
     elif option == 4:
-        qty = int(input("You have chosen Apples. Please enter the quantity: "))
-        if discountFlag == 1:
-            subTotal = (qty * price['Apples']) * 0.9
-        else:
-            subTotal = (qty * price['Apples'])
-        clearScreen()
-        print("Item subtotal: {:.2f}".format(subTotal))
-        total = total + subTotal
-        print("Total: {:.2f}".format(total))
+        try:
+            qty = int(input("You have chosen Apples. Please enter the quantity: "))
+        except:
+            print("Invalid input. Please try again!")
+        applesQty += qty
+        qty = 0
+    else:
+        print("Invalid input. Please try again!")
 
-print("Your cart total is: {:.2f}".format(total))
+if soupQty > 0:
+    halfPricedBread = soupQty // 2
+    subTotal += soupQty * price['Soup']
+    total = total + subTotal
+
+if breadQty > 0:
+    if breadQty > halfPricedBread:
+        subTotal = ((breadQty - halfPricedBread) * price['Bread']) + (halfPricedBread * price['Bread'] / 2)
+    else:
+        subTotal = breadQty * (price['Bread'] / 2)
+    itemDiscount = (breadQty * price['Bread']) - subTotal
+    if itemDiscount > 0:
+        discountText += "Savings on half price for {} loafs of bread: {:.2f}\n".format(halfPricedBread, itemDiscount)
+    totalDiscount += itemDiscount
+    total = total + subTotal
+
+if milkQty > 0:
+    subTotal = milkQty * price['Milk']
+    total = total + subTotal
+
+if applesQty > 0:
+    if discountFlag == 1:
+        subTotal = (applesQty * price['Apples']) * discountMultiplier
+        itemDiscount = (applesQty * price['Apples']) - subTotal
+        discountText += "Savings on 10% off for Apples: {:.2f}\n".format(itemDiscount)
+        totalDiscount += itemDiscount
+    else:
+        subTotal = (qty * price['Apples'])
+    total = total + subTotal
+
+if discountText == "":
+    discountText = "(No offers available)"
+print("\nSubtotal: £{:.2f}".format(total + totalDiscount))
+print(discountText)
+print("Total price: £{:.2f}".format(total))
 
