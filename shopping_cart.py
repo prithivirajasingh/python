@@ -41,9 +41,9 @@ else:
 print("Welcome to our online store!\nPlease find the product ID{0} details below.\n".format(introText))
 print(offerText)
 print ("{:<15} {:<15} {:<10}".format('PRODUCT ID','DESCRIPTION','PRICE'))
-for k, v in price.items():
+for keys, values in price.items():
     temp += 1
-    print("{:<15} {:<15} {:<10}".format(temp, k, v))
+    print("{:<15} {:<15} {:<10}".format(temp, keys, values))
 # exit()
 while option != 0:
     option = -1
