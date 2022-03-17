@@ -122,7 +122,7 @@ class Cart:
     def __str__(self):
         global discountText
         if len(self) > 0:
-            print("\nCART DETAILS:")
+            print("\n\nCART DETAILS:")
             print("{:<15} {:<15} {:<15} {:<15}".format('DESCRIPTION', 'UNIT PRICE', 'QUANTITY', 'PRICE'))
             for keys in self.items:
                 print(self.items[keys], end='')
