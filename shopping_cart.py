@@ -104,8 +104,8 @@ class Cart:
                 discountText += "Savings on half price for {} loaf(s) of bread: {:.2f}\n".format(halfPricedBread, self.items[offerRef2].itemdiscount)
         if offerRef4 in self.items and discountFlag == 1:
             self.items[offerRef4].itemdiscount = self.items[offerRef4].quantity * self.items[offerRef4].unitprice * discountMultiplier
-            if self.items[offerRef2].itemdiscount > 0:
-                discountText += "Savings on 10% off for Apples: {:.2f}\n".format(self.items[offerRef2].itemdiscount)
+            if self.items[offerRef4].itemdiscount > 0:
+                discountText += "Savings on 10% off for Apples: {:.2f}\n".format(self.items[offerRef4].itemdiscount)
         self.subtotal = 0
         self.totaldiscount = 0
         for keys in self.items:
@@ -174,4 +174,3 @@ while option != 0:
 cart.evaluate()
 printToConsole()
 exit()
-
