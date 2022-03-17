@@ -3,7 +3,7 @@ import datetime
 
 # Declarations for customization
 # Append as many products as needed w
-products = {1: ['Soup', 0.65], 2: ['Bread', 0.80], 3: ['Milk', 1.30], 4: ['Apples', 1.00]}
+products = {1: ['Soup', 0.65], 2: ['Bread', 0.80], 3: ['Milk', 1.30], 4: ['Apples', 1.00], 5: ['Oranges', 2.00]}
 # Set the applicable year for discount
 discountYear = 2022
 # Set the applicable week for discount
@@ -140,7 +140,7 @@ class Cart:
 def printToConsole():
     for i in range(1, 100):
         print('\n')
-    print("Welcome to our online store!\nPlease find the product ID{0} details below.\n".format(introText))
+    print("Welcome to our online store!\nPlease find the product ID{} details below.\n".format(introText))
     if offersRunning == 1:
         print(offerText)
     print("{:<15} {:<15} {:<10}".format('PRODUCT ID', 'DESCRIPTION', 'PRICE'))
@@ -151,11 +151,11 @@ def printToConsole():
 cart = Cart()
 printToConsole()
 while option != 0:
-    option = -1
     try:
         option = int(input("\nPlease enter the product ID to add to cart, '0' to checkout: "))
     except:
-        pass
+        print("Invalid input. Please try again!")
+        continue
     if option == 0:
         pass
     elif option in products:
@@ -176,4 +176,3 @@ while option != 0:
 cart.evaluate()
 printToConsole()
 exit()
-
