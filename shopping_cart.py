@@ -14,8 +14,10 @@ discountPercent = 10
 offersRunning = 1
 # Append additional offers if applicable
 offerText = "Offer: Buy 2 tins of soup and get one loaf of bread for half price."
-offerRef1 = 1  # 1 is product id of Soup
-offerRef2 = 2  # 1 is product id of Bread
+offerRef1 = 1   # 1 is product id of Soup
+offerRef1Divisor = 2   # Buy "2" tins of soup
+offerRef2 = 2  # 2 is product id of Bread
+offerRef2Multiplier = 0.5   # get one loaf of bread for "half" price, Eg. 0.2 for 20% discount
 offerText += "\nOffer: 10% off on Apples for this week."
 offerRef4 = 4  # 4 is product id of Apples
 
@@ -82,6 +84,10 @@ class Cart:
             self.items[id].update(qty)
         else:
             qtyError = 1
+        for keys in self.items:
+            if self.items[keys].quantity == 0:
+                del self.items[keys]
+                break
 
     def evaluate(self):
         global discountText
@@ -89,17 +95,13 @@ class Cart:
             return
         halfPricedBread = 0
         discountText = ""
-        for keys in self.items:
-            if self.items[keys].quantity == 0:
-                del self.items[keys]
-                break
         if offerRef1 in self.items:
-            halfPricedBread = self.items[offerRef1].quantity // 2
+            halfPricedBread = self.items[offerRef1].quantity // offerRef1Divisor
         if offerRef2 in self.items:
             if self.items[offerRef2].quantity > halfPricedBread:
-                self.items[offerRef2].itemdiscount = halfPricedBread * self.items[offerRef2].unitprice / 2
+                self.items[offerRef2].itemdiscount = halfPricedBread * self.items[offerRef2].unitprice * offerRef2Multiplier
             else:
-                self.items[offerRef2].itemdiscount = self.items[offerRef2].quantity * self.items[offerRef2].unitprice / 2
+                self.items[offerRef2].itemdiscount = self.items[offerRef2].quantity * self.items[offerRef2].unitprice * offerRef2Multiplier
             if self.items[offerRef2].itemdiscount > 0:
                 discountText += "Savings on half price for {} loaf(s) of bread: {:.2f}\n".format(halfPricedBread, self.items[offerRef2].itemdiscount)
         if offerRef4 in self.items and discountFlag == 1:
@@ -174,3 +176,4 @@ while option != 0:
 cart.evaluate()
 printToConsole()
 exit()
+
