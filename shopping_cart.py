@@ -14,14 +14,11 @@ discountPercent = 10
 offersRunning = 1
 
 # Append additional offers if applicable
-productsURL = "https://raw.githubusercontent.com/prithivirajasingh/python/main/shopping_products.csv"
+productsURL = "products.csv"
+# productsURL = "https://raw.githubusercontent.com/prithivirajasingh/python/main/shopping_products.csv"
 products= pd.read_csv(productsURL)
 products.index += 1
 products = products.rename_axis('ID')
-# print(tabulate(products, headers='keys', showindex=True, tablefmt='psql', numalign='left', floatfmt=".2f"))
-# print(products.iat[1, 0])
-# print((products[products.iloc[:, 0]=='Soup'].index.values)[-1])
-# exit()
 offerText = "Offer: Buy 2 tins of soup and get one loaf of bread for half price."
 offerRefSoup = (products[products.iloc[:, 0]=='Soup'].index.values)[-1] - 1   # This will set the index of Soup
 offerRefSoupDivisor = 2   # Buy "2" tins of soup
@@ -45,6 +42,7 @@ temp = 0
 myDate = datetime.date.today()
 year, weekNum, dayOfWeek = myDate.isocalendar()
 # print(weekNum)
+# exit()
 
 if year == discountYear and weekNum == discountWeek:
     discountFlag = 1
@@ -93,14 +91,15 @@ class Cart:
             self.items[id].update(qty)
         else:
             qtyError = 1
-        for keys in self.items:
-            if self.items[keys].quantity == 0:
-                del self.items[keys]
-                break
+        if self.items[id].quantity == 0:
+            del self.items[id]
 
     def evaluate(self):
         global discountText
-        if not len(self) > 0:
+        if len(self) == 0:
+            self.subtotal = 0
+            self.totaldiscount = 0
+            self.total = 0
             return
         halfPricedBread = 0
         discountText = ""
@@ -126,35 +125,30 @@ class Cart:
             self.total = self.subtotal - self.totaldiscount
         else:
             self.total = self.subtotal
+        return self.total
 
     def __len__(self):
         return len(self.items)
 
     def __str__(self):
         global discountText
-        if len(self) > 0:
-            print("\n\nCART DETAILS:")
-            print("{:<15} {:<15} {:<15} {:<15}".format('DESCRIPTION', 'UNIT PRICE', 'QUANTITY', 'PRICE'))
-            for keys in self.items:
-                print(self.items[keys], end='')
-            print("\nSubtotal: £{:.2f}".format(self.subtotal))
-            if discountText == "" or offersRunning == 0:
-                discountText = "(No offers available)"
-            print(discountText)
-            print("Total price: £{:.2f}".format(self.total))
-            return ''
-        else:
-            return ''
+        print("\n\nCART DETAILS:")
+        print("{:<15} {:<15} {:<15} {:<15}".format('DESCRIPTION', 'UNIT PRICE', 'QUANTITY', 'PRICE'))
+        for keys in self.items:
+            print(self.items[keys], end='')
+        print("\nSubtotal: £{:.2f}".format(self.subtotal))
+        if discountText == "" or offersRunning == 0:
+            discountText = "(No offers available)"
+        print(discountText)
+        print("Total price: £{:.2f}".format(self.total))
+        return ''
 
 def printToConsole():
-    for i in range(1, 100):
+    for i in range(1, 50):
         print('\n')
     print("Welcome to our online store!\nPlease find the product ID{} details below.\n".format(introText))
     if offersRunning == 1:
         print(offerText)
-    # print("{:<15} {:<15} {:<10}".format('PRODUCT ID', 'DESCRIPTION', 'PRICE'))
-    # for keys, values in products.items():
-    #     print("{:<15} {:<15} {:<10}".format(keys, values[0], values[1]))
     print(tabulate(products, headers='keys', showindex=True, tablefmt='psql', numalign='left', floatfmt=".2f"))
     print(cart)
 
@@ -184,6 +178,5 @@ while option != 0:
     else:
         print("Invalid input. Please try again!")
 
-cart.evaluate()
 printToConsole()
 exit()
