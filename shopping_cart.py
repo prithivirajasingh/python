@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import datetime
+import pandas as pd
+from tabulate import tabulate
 
 # Declarations for customization
-# Append as many products as needed w
-products = {1: ['Soup', 0.65], 2: ['Bread', 0.80], 3: ['Milk', 1.30], 4: ['Apples', 1.00], 5: ['Oranges', 2.00]}
 # Set the applicable year for discount
 discountYear = 2022
 # Set the applicable week for discount
@@ -12,14 +12,23 @@ discountWeek = 11
 discountPercent = 10
 # Set this to zero if there are no offers
 offersRunning = 1
+
 # Append additional offers if applicable
+productsURL = "https://raw.githubusercontent.com/prithivirajasingh/python/main/shopping_products.csv"
+products= pd.read_csv(productsURL)
+products.index += 1
+products = products.rename_axis('ID')
+# print(tabulate(products, headers='keys', showindex=True, tablefmt='psql', numalign='left', floatfmt=".2f"))
+# print(products.iat[1, 0])
+# print((products[products.iloc[:, 0]=='Soup'].index.values)[-1])
+# exit()
 offerText = "Offer: Buy 2 tins of soup and get one loaf of bread for half price."
-offerRef1 = 1   # 1 is product id of Soup
-offerRef1Divisor = 2   # Buy "2" tins of soup
-offerRef2 = 2  # 2 is product id of Bread
-offerRef2Multiplier = 0.5   # get one loaf of bread for "half" price, Eg. 0.2 for 20% discount
+offerRefSoup = (products[products.iloc[:, 0]=='Soup'].index.values)[-1] - 1   # This will set the index of Soup
+offerRefSoupDivisor = 2   # Buy "2" tins of soup
+offerRefBread = (products[products.iloc[:, 0]=='Bread'].index.values)[-1] - 1 # This will set the index of Bread
+offerRefBreadMultiplier = 0.5   # get one loaf of bread for "half" price, Eg. 0.2 for 20% discount
 offerText += "\nOffer: 10% off on Apples for this week."
-offerRef4 = 4  # 4 is product id of Apples
+offerRefApples = (products[products.iloc[:, 0]=='Apples'].index.values)[-1] - 1  # This will set the index of Apples
 
 # Declarations for code functioning
 option = -1
@@ -50,8 +59,8 @@ class CartItem:
     def __init__(self, id, qty):
         # CartItem elements contain the below values
         self.id = id
-        self.description = products[id][0]
-        self.unitprice = products[id][1]
+        self.description = products.iat[id, 0]
+        self.unitprice = products.iat[id, 1]
         self.quantity = qty
         self.itemprice = self.unitprice * self.quantity
         self.itemdiscount = 0
@@ -95,19 +104,19 @@ class Cart:
             return
         halfPricedBread = 0
         discountText = ""
-        if offerRef1 in self.items:
-            halfPricedBread = self.items[offerRef1].quantity // offerRef1Divisor
-        if offerRef2 in self.items:
-            if self.items[offerRef2].quantity > halfPricedBread:
-                self.items[offerRef2].itemdiscount = halfPricedBread * self.items[offerRef2].unitprice * offerRef2Multiplier
+        if offerRefSoup in self.items:
+            halfPricedBread = self.items[offerRefSoup].quantity // offerRefSoupDivisor
+        if offerRefBread in self.items:
+            if self.items[offerRefBread].quantity > halfPricedBread:
+                self.items[offerRefBread].itemdiscount = halfPricedBread * self.items[offerRefBread].unitprice * offerRefBreadMultiplier
             else:
-                self.items[offerRef2].itemdiscount = self.items[offerRef2].quantity * self.items[offerRef2].unitprice * offerRef2Multiplier
-            if self.items[offerRef2].itemdiscount > 0:
-                discountText += "Savings on half price for {} loaf(s) of bread: {:.2f}\n".format(halfPricedBread, self.items[offerRef2].itemdiscount)
-        if offerRef4 in self.items and discountFlag == 1:
-            self.items[offerRef4].itemdiscount = self.items[offerRef4].quantity * self.items[offerRef4].unitprice * discountMultiplier
-            if self.items[offerRef4].itemdiscount > 0:
-                discountText += "Savings on 10% off for Apples: {:.2f}\n".format(self.items[offerRef4].itemdiscount)
+                self.items[offerRefBread].itemdiscount = self.items[offerRefBread].quantity * self.items[offerRefBread].unitprice * offerRefBreadMultiplier
+            if self.items[offerRefBread].itemdiscount > 0:
+                discountText += "Savings on half price for {} loaf(s) of bread: {:.2f}\n".format(halfPricedBread, self.items[offerRefBread].itemdiscount)
+        if offerRefApples in self.items and discountFlag == 1:
+            self.items[offerRefApples].itemdiscount = self.items[offerRefApples].quantity * self.items[offerRefApples].unitprice * discountMultiplier
+            if self.items[offerRefApples].itemdiscount > 0:
+                discountText += "Savings on 10% off for Apples: {:.2f}\n".format(self.items[offerRefApples].itemdiscount)
         self.subtotal = 0
         self.totaldiscount = 0
         for keys in self.items:
@@ -143,13 +152,15 @@ def printToConsole():
     print("Welcome to our online store!\nPlease find the product ID{} details below.\n".format(introText))
     if offersRunning == 1:
         print(offerText)
-    print("{:<15} {:<15} {:<10}".format('PRODUCT ID', 'DESCRIPTION', 'PRICE'))
-    for keys, values in products.items():
-        print("{:<15} {:<15} {:<10}".format(keys, values[0], values[1]))
+    # print("{:<15} {:<15} {:<10}".format('PRODUCT ID', 'DESCRIPTION', 'PRICE'))
+    # for keys, values in products.items():
+    #     print("{:<15} {:<15} {:<10}".format(keys, values[0], values[1]))
+    print(tabulate(products, headers='keys', showindex=True, tablefmt='psql', numalign='left', floatfmt=".2f"))
     print(cart)
 
 cart = Cart()
 printToConsole()
+
 while option != 0:
     try:
         option = int(input("\nPlease enter the product ID to add to cart, '0' to checkout: "))
@@ -158,12 +169,12 @@ while option != 0:
         continue
     if option == 0:
         pass
-    elif option in products:
+    elif option <= products.shape[0]:
         try:
-            qty = int(input(f"You have chosen {products[option][0]}. Please enter the quantity: "))
+            qty = int(input(f"You have chosen {products.iat[option - 1, 0]}. Please enter the quantity: "))
         except:
             print("Invalid input. Please try again!")
-        cart.addItems(option, qty)
+        cart.addItems(option - 1, qty)
         cart.evaluate()
         printToConsole()
         if qtyError == 1:
