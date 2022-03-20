@@ -153,11 +153,9 @@ while count > 0:
 		for item in files:
 			premod = os.path.join(folder, item)
 			# print(premod + '\n') # Comment
-			if filename == '':
-				filename = item
 			# print(filename)
 			# print(item)
-			if (any(chars in item for chars in charlist) or forcerun == 1) and item == filename:
+			if (any(chars in item for chars in charlist) or forcerun == 1) and (filename == '' or item == filename):
 				filename = ''
 				# print(premod) # Comment
 				tempstring = item.translate(transdict)
