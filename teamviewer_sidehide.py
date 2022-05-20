@@ -5,6 +5,8 @@ import time
 
 encoding = 'utf-8'
 lookoutGeometry = '272x269'
+xoffset = 15
+yoffset = 90
 
 while True:
     command = ['xdotool', 'search', 'TeamViewer']
@@ -26,9 +28,9 @@ while True:
             if lookoutGeometry in winInfoOut[-1]:
                 axisList = winInfoOut[-2].strip().split(' ')[2].split('+')
                 # print(axisList)
-                xaxis = str(int(float(axisList[1]) * 1.015))
+                xaxis = str(int(float(axisList[1]) + xoffset))
                 # xaxis = '10'
-                yaxis = str(int(float(axisList[2]) * 1.95))
+                yaxis = str(int(float(axisList[2]) + yoffset))
                 # yaxis = '40'
                 command = ['xdotool', 'mousemove', xaxis, yaxis, 'click', '1']
                 # print(command)
