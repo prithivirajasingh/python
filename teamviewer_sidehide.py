@@ -3,6 +3,7 @@
 import subprocess as sub
 import time
 
+time.sleep(20)
 encoding = 'utf-8'
 lookoutGeometry = '272x269'
 xoffset = 15
@@ -38,6 +39,6 @@ while True:
                 # exit()
             # print(line.rstrip(b'\n').decode(encoding))
         # print('\n'.join(winInfoOut))
-    time.sleep(10)
+    time.sleep(20)
 
 
