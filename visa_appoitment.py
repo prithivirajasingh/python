@@ -2,12 +2,20 @@
 import pyautogui
 import time
 import random
+import requests
 import subprocess
 
 encoding = 'utf-8'
+alertUrl = 'https://api.telegram.org/bot5134072525:AAF7D7Vz-icJCLnfQpiLvzPLApVL0DWBEQg/sendMessage?chat_id=251799072&text='
+infoUrl = 'https://api.telegram.org/bot5575037446:AAEJQXg03ILPfmBq9G4554whSkTt9938Vqw/sendMessage?chat_id=251799072&text='
+run_count = 0
 
+exit(0)
 while True:
-    time.sleep(10)
+    run_count += 1
+    alertUrlNew = alertUrl + str(run_count)
+    infoUrlNew = infoUrl + str(run_count)
+    time.sleep(30)
     command = subprocess.Popen(['xdotool', 'getactivewindow', 'getwindowname'], stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT)
     window_name = ''
@@ -16,7 +24,7 @@ while True:
     # print(window_name)
     if not 'cgifederal.secure.force.com/scheduleappointment - Google Chrome' in window_name:
         print("Error: Window name doesn't match. Program will now exit with error code 1.")
-        exit(1)
+        exit(2)
     pyautogui.press('f5')
     time.sleep(2)
     pyautogui.press('enter')
@@ -32,26 +40,50 @@ while True:
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     screen_text = ''
     for line in command.stdout:
-        screen_text = screen_text + line.decode(encoding)
-    print(screen_text)
+        screen_text = screen_text + line.rstrip(b'\n').decode(encoding)
+    # print(screen_text)
     if '2022' in screen_text and 'November' in screen_text:
         command = subprocess.Popen(['ffplay', '/home/prithivi/visa/scam.mp3'], stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
+        messageUrl = alertUrlNew + screen_text
+        response = requests.get(messageUrl)
         exit(0)
-    if '2022' in screen_text and 'December' in screen_text:
+    elif '2022' in screen_text and 'December' in screen_text:
         command = subprocess.Popen(['ffplay', '/home/prithivi/visa/scam.mp3'], stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
+        messageUrl = alertUrlNew + screen_text
+        response = requests.get(messageUrl)
         exit(0)
-    if 'January' in screen_text:
+    elif 'January' in screen_text:
         command = subprocess.Popen(['ffplay', '/home/prithivi/visa/scam.mp3'], stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
+        messageUrl = alertUrlNew + screen_text
+        response = requests.get(messageUrl)
         exit(0)
-    if 'maximum' in screen_text.lower():
+    elif '202' in screen_text:
+        messageUrl = infoUrlNew + screen_text
+        response = requests.get(messageUrl)
+    elif not 'no appoitments' in screen_text.lower() and not '202' in screen_text:
         command = subprocess.Popen(['ffplay', '/home/prithivi/visa/rain.mp3'], stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
-        exit(2)
-    if 'authorization' in screen_text.lower():
-        command = subprocess.Popen(['ffplay', '/home/prithivi/visa/rain.mp3'], stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT)
-        exit(3)
-    time.sleep(random.randint(1, 4) * 60)
+        messageUrl = alertUrlNew + screen_text
+        response = requests.get(messageUrl)
+        exit(1)
+    # if 'maximum' in screen_text.lower():
+    #     command = subprocess.Popen(['ffplay', '/home/prithivi/visa/rain.mp3'], stdout=subprocess.PIPE,
+    #                                stderr=subprocess.STDOUT)
+    #     exit(2)
+    # if 'authorization' in screen_text.lower():
+    #     command = subprocess.Popen(['ffplay', '/home/prithivi/visa/rain.mp3'], stdout=subprocess.PIPE,
+    #                                stderr=subprocess.STDOUT)
+    #     exit(3)
+    # if 'human' in screen_text.lower():
+    #     command = subprocess.Popen(['ffplay', '/home/prithivi/visa/rain.mp3'], stdout=subprocess.PIPE,
+    #                                stderr=subprocess.STDOUT)
+    #     exit(4)
+
+    temp = random.randint(120, 240)
+    print('Run count is: ' + str(run_count))
+    print('Current time is: ' + time.strftime("%H:%M:%S", time.localtime()))
+    print('Wait time is ' + str(temp) + ' seconds.')
+    time.sleep(temp)
