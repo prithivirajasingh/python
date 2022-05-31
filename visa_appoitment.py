@@ -6,7 +6,7 @@ import requests
 import subprocess
 
 encoding = 'utf-8'
-alertUrl = 'https://api.telegram.org/bot5134072525:AAF7D7Vz-icJCLnfQpiLvzPLApVL0DWBEQg/sendMessage?chat_id=251799072&text='
+alertUrl = 'https://api.telegram.org/bot5493238442:AAHmThJx8tsTz9S7ITyyqXaqQOWEK3Ze4L0/sendMessage?chat_id=251799072&text='
 infoUrl = 'https://api.telegram.org/bot5575037446:AAEJQXg03ILPfmBq9G4554whSkTt9938Vqw/sendMessage?chat_id=251799072&text='
 run_count = 0
 
