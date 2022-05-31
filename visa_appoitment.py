@@ -60,9 +60,12 @@ while True:
         messageUrl = alertUrlNew + screen_text
         response = requests.get(messageUrl)
         exit(0)
-    elif '202' in screen_text:
+    elif '2022' in screen_text or '2023' in screen_text:
         messageUrl = infoUrlNew + screen_text
         response = requests.get(messageUrl)
+        temp = '/home/prithivi/visa/' + str(run_count) + '.png'
+        command = subprocess.Popen(['mv', '/home/prithivi/visa/screenshot.png', temp],
+                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     elif not 'no appoitments' in screen_text.lower() and not '202' in screen_text:
         command = subprocess.Popen(['ffplay', '/home/prithivi/visa/rain.mp3'], stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
