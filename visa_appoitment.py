@@ -50,4 +50,8 @@ while True:
         command = subprocess.Popen(['ffplay', '/home/prithivi/visa/rain.mp3'], stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
         exit(2)
-    time.sleep(random.randint(1, 5) * 60)
+    if 'authorization' in screen_text.lower():
+        command = subprocess.Popen(['ffplay', '/home/prithivi/visa/rain.mp3'], stdout=subprocess.PIPE,
+                                   stderr=subprocess.STDOUT)
+        exit(3)
+    time.sleep(random.randint(1, 4) * 60)
