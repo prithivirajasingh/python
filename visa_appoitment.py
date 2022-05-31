@@ -10,7 +10,7 @@ alertUrl = 'https://api.telegram.org/bot5134072525:AAF7D7Vz-icJCLnfQpiLvzPLApVL0
 infoUrl = 'https://api.telegram.org/bot5575037446:AAEJQXg03ILPfmBq9G4554whSkTt9938Vqw/sendMessage?chat_id=251799072&text='
 run_count = 0
 
-exit(0)
+# exit(0)
 while True:
     run_count += 1
     alertUrlNew = alertUrl + str(run_count)
