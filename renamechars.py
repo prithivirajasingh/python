@@ -189,7 +189,7 @@ while count > 0:
 				# print(tempstring)
 				year = len(tempstring.split('_'))
 				for index,items in enumerate(tempstring.split('_')):
-					if 'www' in items:
+					if 'www' in items or 'ww' in items:
 						www = index + 3
 						break
 				for index,items in enumerate(tempstring.split('_')):
