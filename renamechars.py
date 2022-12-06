@@ -31,6 +31,8 @@ for item in sys.argv[1:]:
 		dryrun = True
 	elif item == '-r' or item == '--run':
 		run = True
+	elif item == '-i':
+		incrementalNaming = True
 	elif '-t=' in item:
 		target = item[3:]
 	elif '-p' in item:
@@ -66,6 +68,8 @@ if not 'subfolder' in locals():
 	subfolder = False
 if not 'dryrun' in locals():
 	dryrun = False
+if not 'incrementalNaming' in locals():
+	incrementalNaming = False
 if not 'fcharlen' in locals():
 	fcharlen = 0
 if not 'lcharlen' in locals():
@@ -108,6 +112,7 @@ if helpvar == 1:
 	print('Use -r to run the program without any other arguments.')
 	print("Use -h for help.")
 	print('Use -s to include subfolders.')
+	print('Use -i for incremental naming of all file in the folder')
 	print("Use -f to force run the program on files that don't have trigger charlist.")
 	print("Use -f## for first ## characters.")
 	print("Use -l## for last ## characters.")
@@ -141,6 +146,7 @@ transdict = ''.maketrans(trans1, trans2)
 # print('Checkpoint 1')
 iteration = 1
 count = 1
+incrementalVar = 1
 while count > 0:
 	print(f'Iteration {iteration}')
 	for folder, subfolders, files in os.walk(target):
@@ -155,7 +161,7 @@ while count > 0:
 			# print(premod + '\n') # Comment
 			# print(filename)
 			# print(item)
-			if (any(chars in item for chars in charlist) or forcerun == 1) and (filename == '' or item == filename):
+			if (any(chars in item for chars in charlist) or forcerun == 1 or incrementalNaming == True) and (filename == '' or item == filename):
 				filename = ''
 				# print(premod) # Comment
 				tempstring = item.translate(transdict)
@@ -228,7 +234,9 @@ while count > 0:
 					tempstring1 = tempstring1[:tempvar]
 					tempstring = '_'.join(tempstring1)
 					
-				
+				if incrementalNaming == True:
+					tempstring = str(incrementalVar)
+					incrementalVar = incrementalVar + 1
 				# exit() # Comment
 
 				tempstring = tempstring + file_ext
@@ -335,3 +343,4 @@ while count > 0:
 		count = 0
 
 # print('Task completed.')
+
