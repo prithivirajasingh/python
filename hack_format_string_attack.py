@@ -1,4 +1,4 @@
-# Format string hack
+# Format string attack
 # This is our super secret key:
 SECRET = 'this-secret-string-is-hacked'
 
