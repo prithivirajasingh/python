@@ -1,5 +1,5 @@
 # IMPORTANT HINTS
-Always use while, try, except, Template("custom_string").safe_substitute to get input. (from string import Template)
+Always use while, try, except, break, continue, Template("custom_string").safe_substitute to get input. (from string import Template)
 Always use f-string while writing output
 
 
